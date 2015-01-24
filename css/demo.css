@@ -1,0 +1,158 @@
+body{
+	font-family: defFont;
+}
+
+.container{
+  content: "";
+  display: table;
+  margin: auto;
+  /*height: 924px;*/
+  overflow: scroll;
+
+}
+
+.category{
+  font-size: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 26px;
+  border-bottom-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  padding-bottom: 9px;
+  margin-top: 29px;
+  display: table;
+  /*color: #dbe6f0;*/
+}
+
+.img-wrap{
+  float: left;
+  width: 120px;
+  margin-top: -10px;
+}
+
+#img-udn-logo{
+  width: 139px;
+  /*max-width: 100%;*/
+  height: 47px;
+}
+
+#img-plus-logo{
+  width: 162px;
+  margin-left: 10px;
+  /*max-width: 100%;*/
+  height: 47px;
+}
+
+.yellow{
+  color: #fff100;
+  text-decoration: none;
+}
+
+.white{
+  color: #dbe6f0;
+}
+
+#plus-logo{
+  float: right;
+  display: table;
+  content: "";
+}
+
+.title-b{
+  font-family: defFontB;
+
+}
+
+.title{
+  color: #000000;
+  font-size: 32px;
+  margin-bottom: 10px;
+  max-width: 1200px;
+}
+
+.editors-n-src{
+  color: #808080;
+  font-size: 13px;
+  font-family: defFont;
+  margin-bottom: 30px;
+}
+
+.src{
+  margin-bottom: 5px;
+}
+
+div.editors{
+  margin-bottom: 5px;
+}
+
+.intro{
+  color: #000000;
+  font-size: 17px;
+  padding-bottom: 34px;
+  font-family: defFont;
+  max-width: 1200px;
+  line-height: 26px;
+  border-bottom-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+#slider{
+	margin-top: 20px;
+}
+
+@font-face {
+  font-family: defFont;
+  src: url(ARHeiB5Medium.otf);
+}
+
+@font-face{
+  font-family: defFontB;
+  src: url(ARHeiB5Bold.otf);
+}
+
+#date-display{
+  color: #000000;
+  font-size: 28px;
+  font-family: defFont;
+  border:0;
+  margin-top: 10px;
+}
+
+#filters{
+	width: 100%;
+	max-width: 1200px;
+	margin-top: 50px;
+}
+
+#overall-btn{
+	width: 300px;
+	height: 70px;
+}
+
+#class-btn{
+	width: 300px;
+	height: 70px;
+}
+
+#region-btn{
+	width: 300px;
+	height: 70px;
+}
+
+#chart-container{
+	width: 100%;
+  	max-width: 1200px;
+}
+
+.aa {fill: #f47373; stroke:#c13636; stroke-width:1pt;}  /*公營遊憩區*/
+.bb {fill: #75a7ef; stroke:#3764bf; stroke-width:1pt;}  /*民營遊憩區*/
+.cc {fill: #afd7e8; stroke:#4d95c1; stroke-width:1pt;}  /*海水浴場*/
+.dd {fill: #f2b975; stroke:#e88421; stroke-width:1pt;}  /*古蹟、歷史建物*/ 
+.ee {fill: #938374; stroke:#35281d; stroke-width:1pt;}  /*寺廟*/
+.ff {fill: #56d8a0; stroke:#369e73; stroke-width:1pt;}  /*國家公園*/
+.gg {fill: #47c956; stroke:#0c7a31; stroke-width:1pt;}  /*國家風景區*/
+.hh {fill: #266d0c; stroke:#003a12; stroke-width:1pt;}  /*森林遊樂區*/
+.ii {fill: #5a9389; stroke:#1c2d47; stroke-width:1pt;}  /*縣級風景特定區*/
+.jj {fill: #a8a8a8; stroke:#5b5b5b; stroke-width:1pt;}  /*其他*/
