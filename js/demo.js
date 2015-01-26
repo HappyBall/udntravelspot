@@ -428,7 +428,9 @@ function drawBySearch(){
   d3.select("svg").remove();
 
   var class_checked_list = [];
+  var region_checked_list = [];
   var classcheckboxes = document.getElementsByName('check-class');
+  var regioncheckboxes = document.getElementsByName('check-region');
 
   for (var i = 0; i < 10; i ++){
     class_checked_list[i] = 0;
@@ -441,13 +443,26 @@ function drawBySearch(){
     }
   }
 
+  for (var i = 0; i < 22; i ++){
+    region_checked_list[i] = 0;
+  }
+
+  for (var i = 0, n = regioncheckboxes.length; i < n; i++) {
+    if (regioncheckboxes[i].checked) {
+      var x = getRegionIdx(regioncheckboxes[i].value);
+      region_checked_list[x] = 1;
+    }
+  }
+
+  // console.log (region_checked_list);
+
   svg = d3.select("#chart").append("svg")
       .attr("width", width)
       .attr("height", height)
       .attr("class", "bubble");
 
   node = svg.selectAll(".node")
-      .data(bubble.nodes(classes_search(_root, now_yr.toString(), now_mn, class_checked_list))
+      .data(bubble.nodes(classes_search(_root, now_yr.toString(), now_mn, class_checked_list, region_checked_list))
       .filter(function(d) { return !d.children; }))
       .enter().append("g")
       .attr("class", "node")
@@ -474,7 +489,7 @@ function drawBySearch(){
           return d.spotName.substring(0, d.r / 3); 
         else return null;
       });
-  console.log(class_checked_list);
+
 }
 
 function getClassName(str){
@@ -661,7 +676,7 @@ function getClassIdx(str){
     }
   }
 
-function classes_search(data, yr_str, mn_int, array) {
+function classes_search(data, yr_str, mn_int, array_class, array_region) {
   var newDataSet = []; 
   var classname ;
   var peoNum ;
@@ -669,8 +684,25 @@ function classes_search(data, yr_str, mn_int, array) {
   // console.log(data);  
   for(var obj in data) { 
     var x = getClassIdx(data[obj]['Class']);
-    console.log(x);
-    if (array[x] == 1){
+    var r = data[obj]['region'];
+    var regs = [];
+    var regionornot = 0;
+    
+    if (r.length == 6){
+      regs[0] = r.substr(0,3);
+      regs[1] = r.substr(3,3);
+      var rx1 = getRegionIdx(regs[0]);
+      var rx2 = getRegionIdx(regs[1]);
+      if (array_region[rx1] == 1 || array_region[rx2] == 1)
+        regionornot = 1;
+    }
+    else{
+      var rx = getRegionIdx(r);
+      if (array_region[rx] == 1)
+        regionornot = 1;
+    }
+
+    if (array_class[x] == 1 && regionornot == 1){
       classname = getClassName(data[obj]['Class']);
 
       if(data[obj][yr_str][mn_int - 1] != -1) peoNum = data[obj][yr_str][mn_int - 1];
