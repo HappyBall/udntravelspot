@@ -3,6 +3,9 @@ dataPath = 'data/';
 dataFile = 'travel_spot_mod_final.json';
 dataUrl = dataPath + dataFile;
 
+regiondataFile = 'travel_spot_mod_final_region.json';
+regiondataUrl = dataPath + regiondataFile;
+
 var default_yr = '2005';
 var default_mn = 1;
 var now_yr = default_yr;
@@ -38,7 +41,6 @@ d3.json(dataUrl, function(error, root) {
 	//console.debug(JSON.stringify(root));
   _root = root;
   data_class = root.slice();
-  data_region = root.slice();
   node = svg.selectAll(".node")
       .data(bubble.nodes(classes(root, default_yr, default_mn))
       .filter(function(d) { return !d.children; }))
@@ -245,7 +247,7 @@ function drawByClass(){
 
     n.append("title")
     .text(function(d) { return d['Scenic_Spots'] + ": " + format(d[yr][idx]); });
-
+    
     n.append('circle')
     .attr({
       'cx': function(d){ 
@@ -293,6 +295,8 @@ function drawByClass(){
 }
 
 function drawByRegion(){
+  d3.json(regiondataUrl, function(error, data_region) {
+
   d3.select("svg").remove();
 
   var yr = now_yr.toString();
@@ -354,7 +358,8 @@ function drawByRegion(){
                   return 40 + firstR[x];
                 }*/
             var x = getRegionIdx(d['region']);
-            console.log(x);
+
+            // console.log(x);
             var r_now = rScale(d[yr][idx]);
             counter[x]++;
                 if (counter[x] != 1) cx_region[x] = cx_region[x] + r_region[x] + r_now/para;
@@ -369,7 +374,10 @@ function drawByRegion(){
         },
 
         'cy': function(d){
-
+          var s = d['region'];
+          var classIndex = getRegionIdx(s);
+          
+          return getRegionYY(classIndex);
         },
 
         'r': function(d){
@@ -382,7 +390,8 @@ function drawByRegion(){
           return classname;
         }
       });
-
+  // console.log(counter);
+  });
 }
 
 function getClassName(str){
@@ -478,11 +487,27 @@ function getClassIdx(str){
     // console.log(yy);
   }
 
+  function getRegionYY(index){
+    var yy = 0;
+    if (index == 0){
+      yy = firstCirclePadding + firstR_region[index];
+      return yy;
+    }
+    else{
+      yy = firstCirclePadding + firstR_region[index];
+      for (var j = 0; j < index; j++){
+      // console.log(firstR[j]);
+      yy += 2*firstR_region[j] + firstCirclePadding;
+      }
+      return yy;
+    }
+  }
+
   function getRegionIdx(str){
-    console.log(str);
+    // console.log(str);
     switch(str) {
 
-    case "臺北市":
+    case "台北市":
         return 0;
         break;
     case "新北市":
@@ -491,10 +516,10 @@ function getClassIdx(str){
     case "桃園縣":
         return 2;
         break;
-    case "臺中市":
+    case "台中市":
         return 3;
         break;
-    case "臺南市":
+    case "台南市":
         return 4;
         break;
     case "高雄市":
@@ -527,7 +552,7 @@ function getClassIdx(str){
     case "花蓮縣":
         return 14;
         break;
-    case "臺東縣":
+    case "台東縣":
         return 15;
         break;
     case "基隆市":
