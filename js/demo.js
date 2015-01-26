@@ -6,6 +6,8 @@ dataUrl = dataPath + dataFile;
 regiondataFile = 'travel_spot_mod_final_region.json';
 regiondataUrl = dataPath + regiondataFile;
 
+document.getElementById("popup").style.visibility = "hidden";
+
 var default_yr = '2005';
 var default_mn = 1;
 var now_yr = default_yr;
@@ -146,6 +148,28 @@ $("#region-btn").click(function(){
     drawByRegion();
     // d3.select("svg").transition().style("opacity", 0).remove();
   }
+});
+
+$("#search-btn").click(function(){
+  if (filter_now == 4){
+    if (document.getElementById("popup").style.visibility == "hidden")
+      document.getElementById("popup").style.visibility = "visible";
+    else document.getElementById("popup").style.visibility = "hidden";
+  }
+  else{
+    filter_now = 4;
+    // d3.select("#icons").transition().style("opacity", 0);
+    // d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
+      document.getElementById("popup").style.visibility = "visible";
+    // d3.select("svg").transition().style("opacity", 0).remove();
+  }
+
+  $("html").click(function (e)
+  {
+    if (e.target != document.getElementById("popup") && e.target != document.getElementById("search-btn"))
+        {document.getElementById("popup").style.visibility = "hidden";}
+  });
+
 });
 
 function drawOverall(){
@@ -326,7 +350,7 @@ function drawByRegion(){
     h += firstCirclePadding + 2 * (rScale(data_region[i][yr][idx])/para);
   }
 
-  console.log(h);
+  // console.log(h);
 
   if (h < 900) h = 900;
 

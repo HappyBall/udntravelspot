@@ -100,6 +100,7 @@ div.editors{
 
 #slider{
 	margin-top: 20px;
+  z-index: -1;
 }
 
 @font-face {
@@ -122,28 +123,90 @@ div.editors{
 
 #filters{
 	width: 100%;
+  position: relative;
 	max-width: 1200px;
 	margin-top: 50px;
 }
 
 #overall-btn{
-	width: 300px;
+	width: 290px;
 	height: 70px;
 }
 
 #class-btn{
-	width: 300px;
+	width: 290px;
 	height: 70px;
 }
 
 #region-btn{
-	width: 300px;
+	width: 290px;
 	height: 70px;
+}
+
+#search-btn{
+  width: 290px;
+  height: 70px;
+}
+
+#popup{
+  position: absolute;
+  bottom: -510px;
+  right: 15px;
+  background: #f2f2f2;
+  opacity: 0.9;
+  width: 440px;
+  height: 500px;
+  font-family: defFont;
+  font-size: 17px;
+  color: #666666;
+  border-color: #262626;
+  border-width: 1px;
+  border-style: solid;
+  z-index: 1;
+}
+
+#cancel-search{
+  width: 440px;
+  height: 30px;
+}
+
+.search-check-class{
+  width: 180px;
+  /*text-align: center;*/
+  float: left;
+  margin-left: 35px;
+  margin-top: 10px;
+}
+
+#pop-top{
+  display: table;
+}
+
+#dividing-line{
+  width: 400px;
+  height: 30px;
+  margin: 0px auto;
+  padding-top: 10px;
+}
+
+.search-check-region{
+  width: 110px;
+  /*text-align: center;*/
+  float: left;
+  margin-left: 35px;
+  margin-top: 10px;
+}
+#pop-bot{
+  display: table;
+}
+
+#block{
+  height: 21px;
 }
 
 #chart-container{
 	width: 100%;
-  	max-width: 1200px;
+  max-width: 1200px;
 }
 
 .aa {fill: #f47373; stroke:#c13636; stroke-width:1pt;}  /*公營遊憩區*/
