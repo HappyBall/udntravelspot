@@ -8,6 +8,13 @@ regiondataUrl = dataPath + regiondataFile;
 
 document.getElementById("popup").style.visibility = "hidden";
 
+$(document).ready(function(){
+  $("body").click(function (e)
+  {
+    
+  });
+});
+
 var default_yr = '2005';
 var default_mn = 1;
 var now_yr = default_yr;
@@ -109,8 +116,8 @@ $(function() {
       now_yr = (Math.floor(val / 12)) + 2005;
       now_mn = (Math.floor(val / 12) == 0)? (val % 12) + 1 :(val % 12) + 1;
       $( "#date-display" ).text( now_yr + " 年 " + now_mn + " 月" );
-      drawOverall();
-
+      if(filter_now == 1)drawOverall();
+      else drawBySearch();
     }
   });
   $( "#date-display" ).text("2005 年 1 月");
@@ -158,17 +165,16 @@ $("#search-btn").click(function(){
   }
   else{
     filter_now = 4;
+    drawBySearch();
+    d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
+    d3.select("#icons").transition().style("opacity", 1);
     // d3.select("#icons").transition().style("opacity", 0);
     // d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
       document.getElementById("popup").style.visibility = "visible";
     // d3.select("svg").transition().style("opacity", 0).remove();
   }
 
-  $("html").click(function (e)
-  {
-    if (e.target != document.getElementById("popup") && e.target != document.getElementById("search-btn"))
-        {document.getElementById("popup").style.visibility = "hidden";}
-  });
+  
 
 });
 
@@ -418,6 +424,59 @@ function drawByRegion(){
   });
 }
 
+function drawBySearch(){
+  d3.select("svg").remove();
+
+  var class_checked_list = [];
+  var classcheckboxes = document.getElementsByName('check-class');
+
+  for (var i = 0; i < 10; i ++){
+    class_checked_list[i] = 0;
+  }
+
+  for (var i = 0, n = classcheckboxes.length; i < n; i++) {
+    if (classcheckboxes[i].checked) {
+      var x = getClassIdx(classcheckboxes[i].value);
+      class_checked_list[x] = 1;
+    }
+  }
+
+  svg = d3.select("#chart").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("class", "bubble");
+
+  node = svg.selectAll(".node")
+      .data(bubble.nodes(classes_search(_root, now_yr.toString(), now_mn, class_checked_list))
+      .filter(function(d) { return !d.children; }))
+      .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .on("mouseover", function(d){
+        d3.select(this).select("circle").style("stroke-width", "5px");
+      })
+      .on("mouseout", function(d){
+        d3.select(this).select("circle").style("stroke-width", "1px");
+      });
+
+  node.append("title")
+      .text(function(d) { return d.spotName + ": " + format(d.value); });
+
+  node.append("circle")
+      .attr("r", function(d) { return d.r; })
+      .attr("class", function(d) { return d.className; });
+
+  node.append("text")
+      .attr("dy", ".3em")
+      .style("text-anchor", "middle")
+      .text(function(d) { 
+        if (d.value >= 200000)
+          return d.spotName.substring(0, d.r / 3); 
+        else return null;
+      });
+  console.log(class_checked_list);
+}
+
 function getClassName(str){
   switch(str) {
     case "公營遊憩區":
@@ -601,3 +660,26 @@ function getClassIdx(str){
         return ;
     }
   }
+
+function classes_search(data, yr_str, mn_int, array) {
+  var newDataSet = []; 
+  var classname ;
+  var peoNum ;
+  
+  // console.log(data);  
+  for(var obj in data) { 
+    var x = getClassIdx(data[obj]['Class']);
+    console.log(x);
+    if (array[x] == 1){
+      classname = getClassName(data[obj]['Class']);
+
+      if(data[obj][yr_str][mn_int - 1] != -1) peoNum = data[obj][yr_str][mn_int - 1];
+      else peoNum = 0;
+
+      newDataSet.push({className: classname, spotName: data[obj]['Scenic_Spots'], value: peoNum});
+    }
+        
+  } 
+
+  return {children: newDataSet}; 
+}
