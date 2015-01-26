@@ -15,8 +15,8 @@ $(document).ready(function(){
   });
 });
 
-var default_yr = '2005';
-var default_mn = 1;
+var default_yr = '2014';
+var default_mn = 11;
 var now_yr = default_yr;
 var now_mn = default_mn;
 
@@ -106,7 +106,7 @@ d3.select(self.frameElement).style("height", height + "px");
 
 $(function() {
   $( "#slider" ).slider({
-    value:0,
+    value:118,
     min: 0,
     max: 118,
     step: 1,
@@ -120,7 +120,7 @@ $(function() {
       else drawBySearch();
     }
   });
-  $( "#date-display" ).text("2005 年 1 月");
+  $( "#date-display" ).text("2014 年 11 月");
 });
 
 $("#overall-btn").click(function(){
