@@ -261,7 +261,7 @@ function drawByClass(){
         .domain([Rmin, Rmax])
         .range([4 , 150]);
 
-  for (var i = 0; i < 10; i ++){
+  for (var i = 0; i < 27; i ++){
     cx_classify[i] = 50;
     r_classify[i] = 0;
     counter[i] = 0;
@@ -307,7 +307,11 @@ function drawByClass(){
                   firstR[x] = rScale(d[yr][idx])/para;
                   return 40 + firstR[x];
                 }*/
-          var x = getClassIdx(d['Class']);
+          var x;
+          if(d['Class'] == "國家公園" || d['Class'] == "國家風景區")
+            x = getClassIdx_forClass(d['Detail_Class']);
+          else
+            x = getClassIdx_forClass(d['Class']);
           var r_now = rScale(d[yr][idx]);
           counter[x]++;
                 if (counter[x] != 1) cx_classify[x] = cx_classify[x] + r_classify[x] + r_now/para;
@@ -323,8 +327,13 @@ function drawByClass(){
 
       'cy': function(d){ 
           var str = d['Class'];
-          var classIndex = getClassIdx(str);
+          var classIndex;
           
+          if(str == "國家公園" || str == "國家風景區")
+            classIndex = getClassIdx_forClass(d['Detail_Class']);
+          else
+            classIndex = getClassIdx_forClass(d['Class']);
+
           return getYY(classIndex);
       },
 
@@ -613,7 +622,7 @@ function getClassIdx(str){
         break;
     case "國家風景區":
         return 6;
-        break;
+        break;    
     case "森林遊樂區":
         return 7;
         break;
@@ -628,12 +637,101 @@ function getClassIdx(str){
     }
   }
 
+function getClassIdx_forClass(str){
+    switch(str) {
+
+    case "公營遊憩區":
+        return 0;
+        break;
+    case "民營遊憩區":
+        return 1;
+        break;
+    case "海水浴場":
+        return 2;
+        break;
+    case "古蹟、歷史建物":
+        return 3;
+        break;
+    case "寺廟":
+        return 4;
+        break;
+    case "墾丁國家公園":
+        return 5;
+        break;
+    case "玉山國家公園":
+        return 6;
+        break;
+    case "陽明山國家公園":
+        return 7;
+        break;
+    case "太魯閣國家公園":
+        return 8;
+        break;
+    case "雪霸國家公園":
+        return 9;
+        break;
+    case "金門國家公園":
+        return 10;
+        break;
+    case "東北角暨宜蘭海岸國家風景區":
+        return 11;
+        break;
+    case "東部海岸國家風景區":
+        return 12;
+        break;
+    case "澎湖國家風景區":
+        return 13;
+        break;
+    case "大鵬灣國家風景區":
+        return 14;
+        break;
+    case "花東縱谷國家風景區":
+        return 15;
+        break;
+    case "馬祖國家風景區":
+        return 16;
+        break;
+    case "日月潭國家風景區":
+        return 17;
+        break;
+    case "參山國家風景區":
+        return 18;
+        break;
+    case "阿里山國家風景區":
+        return 19;
+        break;
+    case "茂林國家風景區":
+        return 20;
+        break;
+    case "北海岸及觀音山國家風景區":
+        return 21;
+        break;
+    case "雲嘉南濱海國家風景區":
+        return 22;
+        break;
+    case "西拉雅國家風景區":
+        return 23;
+        break;    
+    case "森林遊樂區":
+        return 24;
+        break;
+    case "縣級風景特定區":
+        return 25;
+        break;
+    case "其他":
+        return 26;
+        break;
+    default:
+        return 26;
+    }
+  }
+
   function getYY(index){
     var yy;
     yy = 0;
     if (index == 0){
       yy = firstCirclePadding + firstR[index];
-      return yy;
+      return yy ;
     }
     else{
       yy = firstCirclePadding + firstR[index];
@@ -771,10 +869,10 @@ function classes_search(data, yr_str, mn_int, array_class, array_region) {
       if(data[obj][yr_str][mn_int - 1] != -1) peoNum = data[obj][yr_str][mn_int - 1];
       else peoNum = 0;
 
-      if (peoNum != 0){ 
+      // if (peoNum != 0){ 
         search_anything ++;
         newDataSet.push({className: classname, spotName: data[obj]['Scenic_Spots'], value: peoNum});
-      }
+      // }
     }    
   } 
   // console.log(newDataSet);
