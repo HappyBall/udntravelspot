@@ -264,6 +264,10 @@ div.editors{
   max-width: 1200px;
 }
 
+#icons{
+  position: absolute;
+}
+
 .aa {fill: #f47373; stroke:#c13636; stroke-width:1pt;}  /*公營遊憩區*/
 .bb {fill: #75a7ef; stroke:#3764bf; stroke-width:1pt;}  /*民營遊憩區*/
 .cc {fill: #afd7e8; stroke:#4d95c1; stroke-width:1pt;}  /*海水浴場*/

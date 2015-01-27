@@ -15,7 +15,7 @@ var now_mn = default_mn;
 
 var filter_now = 1;
 
-var width = 1050,
+var width = 1200,
     height = 900,
     format = d3.format(",d");
     //color = d3.scale.category20c();
@@ -38,6 +38,8 @@ var firstCirclePadding = 10;
 var firstR = [];
 var firstR_region = [];
 
+var x_padding = 150;
+
 d3.json(dataUrl, function(error, root) {
 	// console.log(classes(root));
 	//console.debug(JSON.stringify(root));
@@ -48,7 +50,7 @@ d3.json(dataUrl, function(error, root) {
       .filter(function(d) { return !d.children; }))
       .enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .attr("transform", function(d) { return "translate(" + (d.x + x_padding) + "," + d.y + ")"; })
       .on("mouseover", function(d){
         d3.select(this).select("circle").style("stroke-width", "5px");
       })
@@ -207,7 +209,7 @@ function drawOverall(){
       .filter(function(d) { return !d.children; }))
       .enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .attr("transform", function(d) { return "translate(" + (d.x + x_padding) + "," + d.y + ")"; })
       .on("mouseover", function(d){
         d3.select(this).select("circle").style("stroke-width", "5px");
       })
@@ -246,7 +248,7 @@ function drawByClass(){
   var r_classify = [];
   var counter = [];  
 
-  var w = 1050, h = 0, padding = 0;
+  var w = 1200, h = 0, padding = 0;
   // var classNum = [];
 
   data_class.sort(function(a,b){return b[yr][idx] - a[yr][idx] });
@@ -313,7 +315,7 @@ function drawByClass(){
                   cx_classify[x] = cx_classify[x] + r_now/para;
                 }
                 r_classify[x] = r_now/para;
-                  return cx_classify[x];
+                  return cx_classify[x] + x_padding;
           
         }
       },
@@ -346,7 +348,7 @@ function drawByRegion(){
   var yr = now_yr.toString();
   var idx = now_mn - 1;
   var para = 2;
-  var w = 1050, h = 0, padding = 0;
+  var w = 1200, h = 0, padding = 0;
 
   var cx_region = [];
   var r_region = [];
@@ -412,7 +414,7 @@ function drawByRegion(){
                   cx_region[x] = cx_region[x] + r_now/para;
                 }
                 r_region[x] = r_now/para;
-                return cx_region[x];
+                return cx_region[x] + x_padding;
           
           }
         },
