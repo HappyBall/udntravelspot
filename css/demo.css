@@ -103,6 +103,13 @@ div.editors{
   z-index: 0;
 }
 
+#slider-scale{
+  width: 100%;
+  height: 31px;
+  background: url("../img/scale.jpg");
+  right: 10px;
+}
+
 @font-face {
   font-family: defFont;
   src: url(ARHeiB5Medium.otf);
@@ -130,33 +137,79 @@ div.editors{
 
 #overall-btn{
 	width: 290px;
-	height: 70px;
+	height: 49px;
+  float: left;
+  font-family: defFont;
+  color: #000000;
+  background: #ffffff;
+  border: 0;
+  font-size: 24px;
+  margin-left: 4px;
+  outline: none;
 }
 
 #class-btn{
 	width: 290px;
-	height: 70px;
+	height: 49px;
+  float: left;
+  font-family: defFont;
+  color: #555555;
+  background: #ffffff;
+  border: 0;
+  font-size: 24px;
+  margin-left: 4px;
+  outline: none;
 }
 
 #region-btn{
 	width: 290px;
-	height: 70px;
+	height: 49px;
+  float: left;
+  font-family: defFont;
+  color: #555555;
+  background: #ffffff;
+  border: 0;
+  font-size: 24px;
+  margin-left: 4px;
+  outline: none;
 }
 
 #search-btn{
   width: 290px;
-  height: 70px;
+  height: 49px;
+  float: left;
+  font-family: defFont;
+  color: #555555;
+  background: #ffffff;
+  border: 0;
+  font-size: 24px;
+  margin-left: 4px;
+  outline: none;
+}
+
+.btn-border-first{
+  width: 1px;
+  height: 49px;
+  background: #555555;
+  float: left;
+}
+
+.btn-border{
+  width: 1px;
+  height: 49px;
+  background: #555555;
+  float: left;
+  margin-left: 4px;
 }
 
 #popup{
   position: absolute;
-  bottom: -510px;
-  right: 15px;
+  bottom: -560px;
+  right: 2px;
   background: #f2f2f2;
   opacity: 0.9;
   width: 440px;
   height: 500px;
-  font-family: defFont;
   font-size: 17px;
   color: #666666;
   border-color: #262626;

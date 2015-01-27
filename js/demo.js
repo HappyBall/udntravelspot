@@ -8,13 +8,6 @@ regiondataUrl = dataPath + regiondataFile;
 
 document.getElementById("popup").style.visibility = "hidden";
 
-$(document).ready(function(){
-  $("body").click(function (e)
-  {
-    
-  });
-});
-
 var default_yr = '2014';
 var default_mn = 11;
 var now_yr = default_yr;
@@ -124,18 +117,26 @@ $(function() {
 });
 
 $("#overall-btn").click(function(){
+  document.getElementById("popup").style.visibility = "hidden";
+  document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
+
   if (filter_now == 1);
   else{
+    document.getElementById(getBtnId(filter_now)).style.color = "#555555";
     filter_now = 1;
     drawOverall();
     d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
     d3.select("#icons").transition().style("opacity", 1);
   }
+  document.getElementById("overall-btn").style.color = "#000000";
 });
 
 $("#class-btn").click(function(){
+  document.getElementById("popup").style.visibility = "hidden";
+  document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
   if (filter_now == 2);
   else{
+    document.getElementById(getBtnId(filter_now)).style.color = "#555555";
     filter_now = 2;
     d3.select("#icons").transition().style("opacity", 0);
     // d3.select("svg").transition().style("opacity", 0).remove();
@@ -144,17 +145,22 @@ $("#class-btn").click(function(){
     drawByClass();
     // d3.select("svg").transition().style("opacity", 0).remove();
   }
+  document.getElementById("class-btn").style.color = "#000000";
 });
 
 $("#region-btn").click(function(){
+  document.getElementById("popup").style.visibility = "hidden";
+  document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
   if (filter_now == 3);
   else{
+    document.getElementById(getBtnId(filter_now)).style.color = "#555555";
     filter_now = 3;
     d3.select("#icons").transition().style("opacity", 0);
     d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
     drawByRegion();
     // d3.select("svg").transition().style("opacity", 0).remove();
   }
+  document.getElementById("region-btn").style.color = "#000000";
 });
 
 $("#search-btn").click(function(){
@@ -164,6 +170,7 @@ $("#search-btn").click(function(){
     else document.getElementById("popup").style.visibility = "hidden";
   }
   else{
+    document.getElementById(getBtnId(filter_now)).style.color = "#555555";
     filter_now = 4;
     drawBySearch();
     d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
@@ -173,8 +180,11 @@ $("#search-btn").click(function(){
       document.getElementById("popup").style.visibility = "visible";
     // d3.select("svg").transition().style("opacity", 0).remove();
   }
-
-  
+  document.getElementById("search-btn").style.color = "#000000";
+  if(document.getElementById("popup").style.visibility == "visible")
+    document.getElementById("search-triangle").src = "../img/icon_triangle_up.jpg";
+  else
+    document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
 
 });
 
@@ -709,9 +719,22 @@ function classes_search(data, yr_str, mn_int, array_class, array_region) {
       else peoNum = 0;
 
       newDataSet.push({className: classname, spotName: data[obj]['Scenic_Spots'], value: peoNum});
-    }
-        
+    }    
   } 
-
+  // console.log(newDataSet);
   return {children: newDataSet}; 
 }
+
+function getBtnId(i){
+  switch(i) {
+    case 1:
+      return "overall-btn";
+    case 2:
+      return "class-btn";
+    case 3:
+      return "region-btn";
+    case 4:
+      return "search-btn";
+  }
+}
+
