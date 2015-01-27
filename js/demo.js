@@ -53,7 +53,7 @@ d3.json(dataUrl, function(error, root) {
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + (d.x + x_padding) + "," + d.y + ")"; })
       .on("mouseover", function(d){
-        d3.select(this).select("circle").style("stroke-width", "5px");
+        d3.select(this).select("circle").style("stroke-width", "3px");
       })
       .on("mouseout", function(d){
         d3.select(this).select("circle").style("stroke-width", "1px");
@@ -125,7 +125,7 @@ $("#overall-btn").click(function(){
 
   if (filter_now == 1);
   else{
-    document.getElementById(getBtnId(filter_now)).style.color = "#555555";
+    document.getElementById(getBtnId(filter_now)).style.color = "#808080";
     filter_now = 1;
     drawOverall();
     d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
@@ -140,7 +140,7 @@ $("#class-btn").click(function(){
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
   if (filter_now == 2);
   else{
-    document.getElementById(getBtnId(filter_now)).style.color = "#555555";
+    document.getElementById(getBtnId(filter_now)).style.color = "#808080";
     filter_now = 2;
     d3.select("#icons").transition().style("opacity", 0);
     // d3.select("svg").transition().style("opacity", 0).remove();
@@ -158,7 +158,7 @@ $("#region-btn").click(function(){
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
   if (filter_now == 3);
   else{
-    document.getElementById(getBtnId(filter_now)).style.color = "#555555";
+    document.getElementById(getBtnId(filter_now)).style.color = "#808080";
     filter_now = 3;
     d3.select("#icons").transition().style("opacity", 0);
     d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
@@ -176,7 +176,7 @@ $("#search-btn").click(function(){
     else document.getElementById("popup").style.visibility = "hidden";
   }
   else{
-    document.getElementById(getBtnId(filter_now)).style.color = "#555555";
+    document.getElementById(getBtnId(filter_now)).style.color = "#808080";
     filter_now = 4;
     drawBySearch();
     d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
@@ -212,7 +212,7 @@ function drawOverall(){
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + (d.x + x_padding) + "," + d.y + ")"; })
       .on("mouseover", function(d){
-        d3.select(this).select("circle").style("stroke-width", "5px");
+        d3.select(this).select("circle").style("stroke-width", "3px");
       })
       .on("mouseout", function(d){
         d3.select(this).select("circle").style("stroke-width", "1px");
@@ -290,7 +290,7 @@ function drawByClass(){
           .append('g')
           .attr('class', 'node')
           .on("mouseover", function(d){
-            d3.select(this).select("circle").style("stroke-width", "5px");
+            d3.select(this).select("circle").style("stroke-width", "3px");
           })
           .on("mouseout", function(d){
             d3.select(this).select("circle").style("stroke-width", "1px");
@@ -402,7 +402,7 @@ function drawByRegion(){
           .append('g')
           .attr('class', 'node')
           .on("mouseover", function(d){
-            d3.select(this).select("circle").style("stroke-width", "5px");
+            d3.select(this).select("circle").style("stroke-width", "3px");
           })
           .on("mouseout", function(d){
             d3.select(this).select("circle").style("stroke-width", "1px");
@@ -507,7 +507,7 @@ function drawBySearch(){
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + (d.x + x_padding) + "," + d.y + ")"; })
       .on("mouseover", function(d){
-        d3.select(this).select("circle").style("stroke-width", "5px");
+        d3.select(this).select("circle").style("stroke-width", "3px");
       })
       .on("mouseout", function(d){
         d3.select(this).select("circle").style("stroke-width", "1px");
