@@ -39,6 +39,7 @@ var firstR = [];
 var firstR_region = [];
 
 var x_padding = 150;
+var search_anything = 0;
 
 d3.json(dataUrl, function(error, root) {
 	// console.log(classes(root));
@@ -479,8 +480,11 @@ function drawBySearch(){
 
   node = svg.selectAll(".node")
       .data(bubble.nodes(classes_search(_root, now_yr.toString(), now_mn, class_checked_list, region_checked_list))
-      .filter(function(d) { return !d.children; }))
-      .enter().append("g")
+      .filter(function(d) { return !d.children; }));
+
+      if (search_anything == 0) return;
+
+  node.enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + (d.x + x_padding) + "," + d.y + ")"; })
       .on("mouseover", function(d){
@@ -505,6 +509,47 @@ function drawBySearch(){
           return d.spotName.substring(0, d.r / 3); 
         else return null;
       });
+
+}
+
+function whenToggleAll(){
+  var check = document.getElementsByName('check-all');
+  var classcheckboxes = document.getElementsByName('check-class');
+  var regioncheckboxes = document.getElementsByName('check-region');
+
+  if (check[0].checked) {
+    for (var i = 0, n = classcheckboxes.length; i < n; i++) {
+      if (!classcheckboxes[i].checked) {
+        classcheckboxes[i].checked = true;
+      }
+    }
+    for (var i = 0, n = regioncheckboxes.length; i < n; i++) {
+      if (!regioncheckboxes[i].checked) {
+        regioncheckboxes[i].checked = true;
+      }
+    }
+    drawBySearch();
+  }
+
+  else{
+    for (var i = 0, n = classcheckboxes.length; i < n; i++) {
+      if (classcheckboxes[i].checked) {
+        classcheckboxes[i].checked = false;
+      }
+    }
+    for (var i = 0, n = regioncheckboxes.length; i < n; i++) {
+      if (regioncheckboxes[i].checked) {
+        regioncheckboxes[i].checked = false;
+      }
+    }
+    d3.select("svg").remove();
+    svg = d3.select("#chart").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("class", "bubble");
+  }
+  
+  
 
 }
 
@@ -696,6 +741,7 @@ function classes_search(data, yr_str, mn_int, array_class, array_region) {
   var newDataSet = []; 
   var classname ;
   var peoNum ;
+  search_anything = 0;
   
   // console.log(data);  
   for(var obj in data) { 
@@ -718,13 +764,17 @@ function classes_search(data, yr_str, mn_int, array_class, array_region) {
         regionornot = 1;
     }
 
-    if (array_class[x] == 1 && regionornot == 1){
+    if (array_class[x] == 1 && regionornot == 1 ){
+      
       classname = getClassName(data[obj]['Class']);
 
       if(data[obj][yr_str][mn_int - 1] != -1) peoNum = data[obj][yr_str][mn_int - 1];
       else peoNum = 0;
 
-      newDataSet.push({className: classname, spotName: data[obj]['Scenic_Spots'], value: peoNum});
+      if (peoNum != 0){ 
+        search_anything ++;
+        newDataSet.push({className: classname, spotName: data[obj]['Scenic_Spots'], value: peoNum});
+      }
     }    
   } 
   // console.log(newDataSet);
@@ -743,4 +793,3 @@ function getBtnId(i){
       return "search-btn";
   }
 }
-

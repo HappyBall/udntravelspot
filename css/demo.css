@@ -220,9 +220,11 @@ div.editors{
   z-index: 1;
 }
 
-#cancel-search{
+#toggleall{
   width: 440px;
   height: 30px;
+  margin-left: 35px;
+  margin-top: 10px;
 }
 
 .search-check-class{
@@ -266,6 +268,7 @@ div.editors{
 
 #icons{
   position: absolute;
+  margin-top: 10px;
 }
 
 .aa {fill: #f47373; stroke:#c13636; stroke-width:1pt;}  /*公營遊憩區*/
