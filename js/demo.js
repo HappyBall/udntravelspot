@@ -126,6 +126,7 @@ $("#overall-btn").click(function(){
     filter_now = 1;
     drawOverall();
     d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
+    d3.select("#slider-scale").transition().style("opacity", 1);
     d3.select("#icons").transition().style("opacity", 1);
   }
   document.getElementById("overall-btn").style.color = "#000000";
@@ -141,6 +142,7 @@ $("#class-btn").click(function(){
     d3.select("#icons").transition().style("opacity", 0);
     // d3.select("svg").transition().style("opacity", 0).remove();
     d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
+    d3.select("#slider-scale").transition().style("opacity", 0);
     // console.log(_root);
     drawByClass();
     // d3.select("svg").transition().style("opacity", 0).remove();
@@ -157,6 +159,7 @@ $("#region-btn").click(function(){
     filter_now = 3;
     d3.select("#icons").transition().style("opacity", 0);
     d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
+    d3.select("#slider-scale").transition().style("opacity", 0);
     drawByRegion();
     // d3.select("svg").transition().style("opacity", 0).remove();
   }
@@ -174,6 +177,7 @@ $("#search-btn").click(function(){
     filter_now = 4;
     drawBySearch();
     d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
+    d3.select("#slider-scale").transition().style("opacity", 1);
     d3.select("#icons").transition().style("opacity", 1);
     // d3.select("#icons").transition().style("opacity", 0);
     // d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
