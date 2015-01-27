@@ -482,7 +482,7 @@ function drawBySearch(){
       .filter(function(d) { return !d.children; }))
       .enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .attr("transform", function(d) { return "translate(" + (d.x + x_padding) + "," + d.y + ")"; })
       .on("mouseover", function(d){
         d3.select(this).select("circle").style("stroke-width", "5px");
       })
