@@ -16,7 +16,7 @@ var now_mn = default_mn;
 var filter_now = 1;
 
 var width = 1200,
-    height = 900,
+    height = 700,
     format = d3.format(",d");
     //color = d3.scale.category20c();
 
@@ -34,11 +34,11 @@ var node = svg.selectAll(".node");
 var _root = 0;
 var data_class = 0;
 var data_region = 0;
-var firstCirclePadding = 10;
+var firstCirclePadding = 100;
 var firstR = [];
 var firstR_region = [];
 
-var x_padding = 150;
+var x_padding = 0;
 var search_anything = 0;
 
 d3.json(dataUrl, function(error, root) {
@@ -248,6 +248,8 @@ function drawByClass(){
   var cx_classify = [];
   var r_classify = [];
   var counter = [];  
+  var counter_y = [];
+  var firstX = [];
 
   var w = 1200, h = 0, padding = 0;
   // var classNum = [];
@@ -266,6 +268,8 @@ function drawByClass(){
     r_classify[i] = 0;
     counter[i] = 0;
     firstR[i] = 0;
+    counter_y[i] = 0;
+    firstX[i] = 0;
     // classNum[i] = 0;
     h += firstCirclePadding + 2 * (rScale(data_class[i][yr][idx])/para);
   }
@@ -318,6 +322,7 @@ function drawByClass(){
                 else {
                   firstR[x] = r_now/para;
                   cx_classify[x] = cx_classify[x] + r_now/para;
+                  firstX[x] = cx_classify[x];
                 }
                 r_classify[x] = r_now/para;
                   return cx_classify[x] + x_padding;
@@ -333,7 +338,12 @@ function drawByClass(){
             classIndex = getClassIdx_forClass(d['Detail_Class']);
           else
             classIndex = getClassIdx_forClass(d['Class']);
-
+          counter_y[classIndex]++;
+          if (counter_y[classIndex] == 1) 
+            n.append("text")
+             .attr("x", firstX[classIndex])
+             .attr("y", getYY(classIndex) - firstR[classIndex])
+             .text("WTF");
           return getYY(classIndex);
       },
 
@@ -729,9 +739,9 @@ function getClassIdx_forClass(str){
   function getYY(index){
     var yy;
     yy = 0;
-    if (index == 0){
+    if (index == 0){  
       yy = firstCirclePadding + firstR[index];
-      return yy ;
+      return yy;
     }
     else{
       yy = firstCirclePadding + firstR[index];
@@ -747,7 +757,7 @@ function getClassIdx_forClass(str){
   function getRegionYY(index){
     var yy = 0;
     if (index == 0){
-      yy = firstCirclePadding + firstR_region[index];
+      yy = firstCirclePadding + firstR_region[index] ;
       return yy;
     }
     else{
