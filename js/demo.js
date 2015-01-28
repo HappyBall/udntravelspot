@@ -58,26 +58,44 @@ d3.json(dataUrl, function(error, root) {
       .attr("transform", function(d) { return "translate(" + (d.x + x_padding) + "," + d.y + ")"; })
       .on("mouseover", function(d){
         // console.log(d);
-        $("#risetip-film-name").text("景點名稱：" + d.spotName);
-        $("#risetip-one-bo").text("當月人數：" + d.value.toString() ) ;
+        var tip_region_str;
+        var r = d.region;
+        var regs = [];
+        $("#tip-spot-name").text(d.spotName);
+        $("#tip-tour-number").text(d.value.toString() + "位遊客") ;
+        if (d.Class == "國家公園" || d.Class == "國家風景區"){
+          $("#tip-class").text("類別/ " + d.Detail_Class);
+        }
+        else{
+          $("#tip-class").text("類別/ " + d.Class);
+        }
+
+        if (r.length == 6){
+          regs[0] = r.substr(0,3);
+          regs[1] = r.substr(3,3);
+          $("#tip-region").text("縣市別/ " + regs[0] + "、" + regs[1]);
+        }
+        else{
+          $("#tip-region").text("縣市別/ " + r);
+        }
         // $("#risetip-sum-bo").text("地區：" +  d["region"]);
-        tip_x = d.x;
-        tip_y = d.y;
+        tip_x = d.x + 20;
+        tip_y = d.y + 10;
         d3.select(this).select("circle").style("stroke-width", "3px");
-        d3.select(".overall_tip").transition()
+        d3.select(".tool_tip").transition()
           .attr("transform", function(){
-            return "translate(" + (tip_x + x_padding + 15) + "," + (tip_y - 85) + ")";
+            return "translate(" + tip_x + "," + tip_y + ")";
           })
           .style("display", "inline")
           .duration(500);
       })
       .on("mouseout", function(d){
         d3.select(this).select("circle").style("stroke-width", "1px");
-        d3.select(".overall_tip").transition().style("display", "none").duration(1000).delay(1500);
+        d3.select(".tool_tip").transition().style("display", "none").duration(1000).delay(500);
       });
 
-  node.append("title")
-      .text(function(d) { return d.spotName + ": " + format(d.value); });
+  /*node.append("title")
+      .text(function(d) { return d.spotName + ": " + format(d.value); });*/
 
   node.append("circle")
       .attr("r", function(d) { return d.r; })
@@ -92,35 +110,7 @@ d3.json(dataUrl, function(error, root) {
         else return null;
       });
 
-    tooltip= svg.append("g")
-      .attr("class","overall_tip")
-      .style("display", "none")
-      .attr("transform", "translate(150,100)");
-
-    tooltip.append("rect")
-      .attr("id", "risetip-frame")
-      .attr("stroke-width", 1)
-      .attr("stroke", "black")
-      .attr("fill", "white")
-      .attr("width", 250)
-      .attr("height", 70)
-      .attr("transform", "translate(0,0)");
-
-    tooltip.append("text")
-      .attr("id", "risetip-film-name")
-      .text("電影名稱：")
-      .attr("transform", "translate(10,20)");
-
-    tooltip.append("text")
-      .attr("id", "risetip-one-bo")
-      .text("單週票房：100萬")
-      .attr("transform", "translate(10,40)");
-
-    tooltip.append("text")
-      .attr("id", "risetip-sum-bo")
-      .text("總票房：8000萬")
-      .attr("transform", "translate(10,60)");
-
+    createToolTip(svg);
 });
 
 
@@ -137,7 +127,7 @@ function classes(data, yr_str, mn_int) {
 				if(data[obj][yr_str][mn_int - 1] != -1) peoNum = data[obj][yr_str][mn_int - 1];
 				else peoNum = 0;
 
-				newDataSet.push({className: classname, spotName: data[obj]['Scenic_Spots'], value: peoNum});
+				newDataSet.push({className: classname, spotName: data[obj]['Scenic_Spots'], value: peoNum, Class: data[obj]['Class'], region: data[obj]['region'], Detail_Class: data[obj]['Detail_Class']});
 				
 			} 
 
@@ -168,6 +158,7 @@ $(function() {
 $("#overall-btn").click(function(){
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
+  d3.select("#remark").transition().style("display", "inline");
 
   if (filter_now == 1);
   else{
@@ -184,6 +175,7 @@ $("#overall-btn").click(function(){
 $("#class-btn").click(function(){
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
+  d3.select("#remark").transition().style("display", "none");
   if (filter_now == 2);
   else{
     document.getElementById(getBtnId(filter_now)).style.color = "#808080";
@@ -202,6 +194,7 @@ $("#class-btn").click(function(){
 $("#region-btn").click(function(){
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
+  d3.select("#remark").transition().style("display", "none");
   if (filter_now == 3);
   else{
     document.getElementById(getBtnId(filter_now)).style.color = "#808080";
@@ -216,6 +209,7 @@ $("#region-btn").click(function(){
 });
 
 $("#search-btn").click(function(){
+  d3.select("#remark").transition().style("display", "inline");
   if (filter_now == 4){
     if (document.getElementById("popup").style.visibility == "hidden")
       document.getElementById("popup").style.visibility = "visible";
@@ -259,13 +253,42 @@ function drawOverall(){
       .attr("transform", function(d) { return "translate(" + (d.x + x_padding) + "," + d.y + ")"; })
       .on("mouseover", function(d){
         d3.select(this).select("circle").style("stroke-width", "3px");
+        var tip_region_str;
+        var r = d.region;
+        var regs = [];
+        $("#tip-spot-name").text(d.spotName);
+        $("#tip-tour-number").text(d.value.toString() + "位遊客") ;
+        if (d.Class == "國家公園" || d.Class == "國家風景區"){
+          $("#tip-class").text("類別/ " + d.Detail_Class);
+        }
+        else{
+          $("#tip-class").text("類別/ " + d.Class);
+        }
+        if (r.length == 6){
+          regs[0] = r.substr(0,3);
+          regs[1] = r.substr(3,3);
+          $("#tip-region").text("縣市別/ " + regs[0] + "、" + regs[1]);
+        }
+        else{
+          $("#tip-region").text("縣市別/ " + r);
+        }
+        // $("#risetip-sum-bo").text("地區：" +  d["region"]);
+        tip_x = d.x + 20;
+        tip_y = d.y + 10;
+        d3.select(".tool_tip").transition()
+          .attr("transform", function(){
+            return "translate(" + tip_x + "," + tip_y + ")";
+          })
+          .style("display", "inline")
+          .duration(500);
       })
       .on("mouseout", function(d){
         d3.select(this).select("circle").style("stroke-width", "1px");
+        d3.select(".tool_tip").transition().style("display", "none").duration(1000).delay(500);
       });
 
-      node.append("title")
-      .text(function(d) { return d.spotName + ": " + format(d.value); });
+      /*node.append("title")
+      .text(function(d) { return d.spotName + ": " + format(d.value); });*/
 
       node.append("circle")
       .attr("r", function(d) { return d.r; })
@@ -279,6 +302,8 @@ function drawOverall(){
           return d.spotName.substring(0, d.r / 3); 
         else return null;
       });
+
+      createToolTip(svg);
 }
 
 function drawByClass(){
@@ -298,7 +323,9 @@ function drawByClass(){
   var firstX = [];
 
   var w = 1200, h = 0, padding = 0;
-  // var classNum = [];
+  var classNum = 0;
+  var allX = {};
+  var allY = {};
 
   data_class.sort(function(a,b){return b[yr][idx] - a[yr][idx] });
 
@@ -320,14 +347,16 @@ function drawByClass(){
     h += firstCirclePadding + 2 * (rScale(data_class[i][yr][idx])/para);
   }
 
+   h -= 200;
+
   if (h < 900) h = 900; // svg height at least 900px
 
-  // for (var i in data_class){
-  //   if (data_class[i][yr][idx] != -1){ 
-  //     var c = data_class[i]['Class'];
-  //     classNum[getClassIdx(c)]++;
-  //   }
-  // }
+  for (var i in data_class){
+    if (data_class[i][yr][idx] != -1){ 
+      if(data_class[i]['Class'] == "公營遊憩區")
+        classNum++;
+    }
+  }
   // console.log(classNum);
 
   var svg_class = d3.select('#chart').append('svg').attr({'width': w, 'height': h});
@@ -336,14 +365,49 @@ function drawByClass(){
           .append('g')
           .attr('class', 'node')
           .on("mouseover", function(d){
+            // console.log(d);
             d3.select(this).select("circle").style("stroke-width", "3px");
-          })
-          .on("mouseout", function(d){
-            d3.select(this).select("circle").style("stroke-width", "1px");
-          });
-
-    n.append("title")
-    .text(function(d) { return d['Scenic_Spots'] + ": " + format(d[yr][idx]); });
+            var tip_region_str;
+            var r = d['region'];
+            var regs = [];
+            var spot = d['Scenic_Spots']
+            $("#tip-spot-name").text(spot);
+            $("#tip-tour-number").text(d[now_yr][now_mn - 1].toString() + "位遊客") ;
+            if (d['Class'] == "國家公園" || d['Class'] == "國家風景區"){
+              $("#tip-class").text("類別/ " + d['Detail_Class']);
+            }
+            else{
+              $("#tip-class").text("類別/ " + d['Class']);
+            }
+            if (r.length == 6){
+              regs[0] = r.substr(0,3);
+              regs[1] = r.substr(3,3);
+              $("#tip-region").text("縣市別/ " + regs[0] + "、" + regs[1]);
+            }
+            else{
+              $("#tip-region").text("縣市別/ " + r);
+            }
+            // $("#risetip-sum-bo").text("地區：" +  d["region"]);
+            tip_x = allX[spot] + 20;
+            tip_y = allY[spot] + 10;
+            // console.log(tip_x);
+            if(tip_x + 250 > 1200)
+              tip_x = tip_x - 250;
+            d3.select(".tool_tip").transition()
+              .attr("transform", function(){
+                return "translate(" + tip_x + "," + tip_y + ")";
+              })
+              .style("display", "inline")
+              .duration(500);
+            })
+            .on("mouseout", function(d){
+              d3.select(this).select("circle").style("stroke-width", "1px");
+              d3.select(".tool_tip").transition().style("display", "none").duration(1000).delay(500);
+            });
+  var nnn = svg_class.selectAll('.class-text').data(data_class).enter()
+                  .append('g').attr('class', 'class-text');
+    /*n.append("title")
+    .text(function(d) { return d['Scenic_Spots'] + ": " + format(d[yr][idx]); });*/
     
     n.append('circle')
     .attr({
@@ -364,14 +428,21 @@ function drawByClass(){
             x = getClassIdx_forClass(d['Class']);
           var r_now = rScale(d[yr][idx]);
           counter[x]++;
-                if (counter[x] != 1) cx_classify[x] = cx_classify[x] + r_classify[x] + r_now/para;
+                if (counter[x] != 1) {
+                  if(x == 0){
+                    cx_classify[x] = 2* firstR[x] + (counter[x] - 1) * ( w /classNum);
+                  }
+                  else
+                    cx_classify[x] = cx_classify[x] + r_classify[x] + r_now/para;
+                }
                 else {
                   firstR[x] = r_now/para;
                   cx_classify[x] = cx_classify[x] + r_now/para;
                   firstX[x] = cx_classify[x];
                 }
                 r_classify[x] = r_now/para;
-                  return cx_classify[x] + x_padding;
+                allX[d['Scenic_Spots']] = cx_classify[x];
+                return cx_classify[x] + x_padding;
           
         }
       },
@@ -396,25 +467,26 @@ function drawByClass(){
           counter_y[classIndex]++;
           if (counter_y[classIndex] == 1) 
             if(classIndex == 5 || classIndex == 11){
-              n.append("text")
+              nnn.append("text")
                .attr("x", firstX[classIndex] - firstR[classIndex])
                .attr("y", getYY(classIndex) - firstR[classIndex] - 20)
                .text(str_text)
                .attr("class", attr_class);
 
-              n.append("text")
+              nnn.append("text")
                .attr("x", firstX[classIndex] - firstR[classIndex])
                .attr("y", getYY(classIndex) - firstR[classIndex] - 60)
                .text(str)
                .attr("class", "draw-text-class");
             }
             else{
-              n.append("text")
+              nnn.append("text")
                .attr("x", firstX[classIndex] - firstR[classIndex])
                .attr("y", getYY(classIndex) - firstR[classIndex] - 20)
                .text(str_text)
                .attr("class", attr_class);
             }
+          allY[d['Scenic_Spots']] = getYY(classIndex);
           return getYY(classIndex);
       },
 
@@ -428,7 +500,10 @@ function drawByClass(){
         return classname;
       }
     });
-    
+
+    createToolTip_Class(svg_class);
+/*    console.log(allX);
+    console.log(allY);*/
 }
 
 function drawByRegion(){
@@ -447,6 +522,12 @@ function drawByRegion(){
   var counter_y = [];
   var firstX_region = [];
 
+  var allX = {};
+  var allY = {};
+
+  var biggestNames = [];
+  var counter_names = [];
+
   data_region.sort(function(a,b){return b[yr][idx] - a[yr][idx] });
 
   var Rmax = d3.max(data_region, function(d){return d[yr][idx]}),
@@ -463,9 +544,21 @@ function drawByRegion(){
     firstR_region[i] = 0;
     counter_y[i] = 0;
     firstX_region[i] = 0;
+    biggestNames[i] = 0;
+    counter_names[i] = 0;
     // classNum[i] = 0;
     h += firstCirclePadding + 2 * (rScale(data_region[i][yr][idx])/para);
   }
+
+  for (var i in data_region){
+    var x = getRegionIdx(data_region[i]['region']);
+    if(counter_names[x] == 0){
+      biggestNames[x] = data_region[i]['Scenic_Spots'];
+      counter_names[x] ++;
+    }
+  }
+
+  // console.log(biggestNames);
 
   // console.log(h);
 
@@ -478,13 +571,45 @@ function drawByRegion(){
           .attr('class', 'node')
           .on("mouseover", function(d){
             d3.select(this).select("circle").style("stroke-width", "3px");
+            var tip_region_str;
+            var r = d['region'];
+            var regs = [];
+            var spot = d['Scenic_Spots']
+            $("#tip-spot-name").text(spot);
+            $("#tip-tour-number").text(d[now_yr][now_mn - 1].toString() + "位遊客") ;
+            if (d['Class'] == "國家公園" || d['Class'] == "國家風景區"){
+              $("#tip-class").text("類別/ " + d['Detail_Class']);
+            }
+            else{
+              $("#tip-class").text("類別/ " + d['Class']);
+            }
+            if (r.length == 6){
+              regs[0] = r.substr(0,3);
+              regs[1] = r.substr(3,3);
+              $("#tip-region").text("縣市別/ " + regs[0] + "、" + regs[1]);
+            }
+            else{
+              $("#tip-region").text("縣市別/ " + r);
+            }
+            // $("#risetip-sum-bo").text("地區：" +  d["region"]);
+            tip_x = allX[spot] + 20;
+            tip_y = allY[spot] + 10;
+            d3.select(".tool_tip").transition()
+              .attr("transform", function(){
+                return "translate(" + tip_x + "," + tip_y + ")";
+              })
+              .style("display", "inline")
+              .duration(500);
           })
           .on("mouseout", function(d){
             d3.select(this).select("circle").style("stroke-width", "1px");
+            d3.select(".tool_tip").transition().style("display", "none").duration(1000).delay(500);
           });
 
-      n.append("title")
-      .text(function(d) { return d['Scenic_Spots'] + ": " + format(d[yr][idx]); });
+    var nnn = svg_region.selectAll('.region-text').data(data_region).enter()
+                  .append('g').attr('class', 'region-text');
+      /*n.append("title")
+      .text(function(d) { return d['Scenic_Spots'] + ": " + format(d[yr][idx]); });*/
 
       n.append("circle")
       .attr({
@@ -510,6 +635,7 @@ function drawByRegion(){
                   firstX_region[x] = cx_region[x];
                 }
                 r_region[x] = r_now/para;
+                allX[d['Scenic_Spots']] = cx_region[x];
                 return cx_region[x] + x_padding;
           
           }
@@ -522,12 +648,12 @@ function drawByRegion(){
 
           counter_y[classIndex]++;
           if (counter_y[classIndex] == 1) 
-            n.append("text")
+             nnn.append("text")
              .attr("x", firstX_region[classIndex] - firstR_region[classIndex])
              .attr("y", getRegionYY(classIndex) - firstR_region[classIndex] - 20)
              .text(ss)
              .attr("class", "draw-text-region");
-          
+          allY[d['Scenic_Spots']] = getRegionYY(classIndex);
           return getRegionYY(classIndex);
         },
 
@@ -541,6 +667,8 @@ function drawByRegion(){
           return classname;
         }
       });
+
+      createToolTip_Class(svg_region);
   // console.log(counter);
   });
 }
@@ -609,13 +737,42 @@ function drawBySearch(){
       .attr("transform", function(d) { return "translate(" + (d.x + x_padding) + "," + d.y + ")"; })
       .on("mouseover", function(d){
         d3.select(this).select("circle").style("stroke-width", "3px");
+        var tip_region_str;
+        var r = d.region;
+        var regs = [];
+        $("#tip-spot-name").text(d.spotName);
+        $("#tip-tour-number").text(d.value.toString() + "位遊客") ;
+        if (d.Class == "國家公園" || d.Class == "國家風景區"){
+          $("#tip-class").text("類別/ " + d.Detail_Class);
+        }
+        else{
+          $("#tip-class").text("類別/ " + d.Class);
+        }
+        if (r.length == 6){
+          regs[0] = r.substr(0,3);
+          regs[1] = r.substr(3,3);
+          $("#tip-region").text("縣市別/ " + regs[0] + "、" + regs[1]);
+        }
+        else{
+          $("#tip-region").text("縣市別/ " + r);
+        }
+        // $("#risetip-sum-bo").text("地區：" +  d["region"]);
+        tip_x = d.x + 20;
+        tip_y = d.y + 10;
+        d3.select(".tool_tip").transition()
+          .attr("transform", function(){
+            return "translate(" + tip_x + "," + tip_y + ")";
+          })
+          .style("display", "inline")
+          .duration(500);
       })
       .on("mouseout", function(d){
         d3.select(this).select("circle").style("stroke-width", "1px");
+        d3.select(".tool_tip").transition().style("display", "none").duration(1000).delay(500);
       });
 
-  node.append("title")
-      .text(function(d) { return d.spotName + ": " + format(d.value); });
+  /*node.append("title")
+      .text(function(d) { return d.spotName + ": " + format(d.value); });*/
 
   node.append("circle")
       .attr("r", function(d) { return d.r; })
@@ -629,7 +786,7 @@ function drawBySearch(){
           return d.spotName.substring(0, d.r / 3); 
         else return null;
       });
-
+  createToolTip(svg);
 }
 
 /*function whenToggleAll(){
@@ -1032,7 +1189,7 @@ function classes_search(data, yr_str, mn_int, array_class, array_region) {
 
       // if (peoNum != 0){ 
         search_anything ++;
-        newDataSet.push({className: classname, spotName: data[obj]['Scenic_Spots'], value: peoNum});
+        newDataSet.push({className: classname, spotName: data[obj]['Scenic_Spots'], value: peoNum, Class: data[obj]['Class'], region: data[obj]['region'], Detail_Class: data[obj]['Detail_Class']});
       // }
     }    
   } 
@@ -1059,4 +1216,76 @@ function modRegionName(s){
   else if (s == "桃園縣")
     return "桃園市"
   else return s;
+}
+
+function createToolTip( _svg ){
+  tooltip= _svg.append("g")
+      .attr("class","tool_tip")
+      .style("display", "none")
+      .attr("transform", "translate(150,100)");
+
+  tooltip.append("rect")
+      .attr("id", "tip-frame")
+      .attr("stroke-width", 1)
+      .attr("stroke", "black")
+      .attr("fill", "white")
+      .attr("width", 220)
+      .attr("height", 90)
+      .attr("transform", "translate(0,0)");
+
+  tooltip.append("text")
+      .attr("id", "tip-spot-name")
+      .text("景點名稱")
+      .attr("transform", "translate(10,20)");
+
+  tooltip.append("text")
+      .attr("id", "tip-tour-number")
+      .text("遊客人數")
+      .attr("transform", "translate(10,40)");
+
+  tooltip.append("text")
+      .attr("id", "tip-region")
+      .text("縣市別")
+      .attr("transform", "translate(10,60)");
+
+  tooltip.append("text")
+      .attr("id", "tip-class")
+      .text("類型")
+      .attr("transform", "translate(10,80)");
+}
+
+function createToolTip_Class( _svg ){
+  tooltip= _svg.append("g")
+      .attr("class","tool_tip")
+      .style("display", "none")
+      .attr("transform", "translate(0,0)");
+
+  tooltip.append("rect")
+      .attr("id", "tip-frame")
+      .attr("stroke-width", 1)
+      .attr("stroke", "black")
+      .attr("fill", "white")
+      .attr("width", 220)
+      .attr("height", 90)
+      .attr("transform", "translate(0,0)");
+
+  tooltip.append("text")
+      .attr("id", "tip-spot-name")
+      .text("景點名稱")
+      .attr("transform", "translate(10,20)");
+
+  tooltip.append("text")
+      .attr("id", "tip-tour-number")
+      .text("遊客人數")
+      .attr("transform", "translate(10,40)");
+
+  tooltip.append("text")
+      .attr("id", "tip-region")
+      .text("縣市別")
+      .attr("transform", "translate(10,60)");
+
+  tooltip.append("text")
+      .attr("id", "tip-class")
+      .text("類型")
+      .attr("transform", "translate(10,80)");
 }

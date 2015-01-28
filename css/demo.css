@@ -89,13 +89,13 @@ div.editors{
 .intro{
   color: #000000;
   font-size: 17px;
-  padding-bottom: 34px;
+  /*padding-bottom: 34px;*/
   font-family: defFont;
   max-width: 1200px;
   line-height: 26px;
-  border-bottom-color: black;
+/*  border-bottom-color: black;
   border-bottom-style: solid;
-  border-bottom-width: 1px;
+  border-bottom-width: 1px;*/
 }
 
 #slider{
@@ -296,6 +296,12 @@ input{
 .draw-text-region{
   font-size: 30px;
   font-family: defFont;
+}
+
+#remark{
+  float: right;
+  font-family: defFont;
+  font-size: 17px;
 }
 
 .aa {fill: #f47373; stroke:#c13636; stroke-width:1pt;}  /*公營遊憩區*/
