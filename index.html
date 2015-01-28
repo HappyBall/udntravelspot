@@ -64,46 +64,52 @@
 			</div>
 			<div class = "btn-border"></div>
 			<div id="popup">
-				<div id = "toggleall">
-					<input type = "checkbox" name = "check-all" onclick = "whenToggleAll();" checked>全選
+				<div id = "cancel-pop">
+					<!-- <input type = "checkbox" name = "check-all" onclick = "whenToggleAll();" checked>全選 -->
 				</div>
 
 				<div id = "pop-top">
-				<div class = "search-check-class" >
-					<input type = "checkbox" name = "check-class" value = "公營遊憩區" onclick = "drawBySearch();" checked>公營遊憩區
+				<div class = "toggleall">
+					<input type = "checkbox" name = "check-all-class" onclick = "ToggleAllClass();" checked> 全選(類型)
 				</div>
 				<div class = "search-check-class" >
-					<input type = "checkbox" name = "check-class" value = "國家公園" onclick = "drawBySearch();" checked>國家公園 <br>
+					<input type = "checkbox" name = "check-class" value = "公營遊憩區" onclick = "drawBySearch();" checked> 公營遊憩區
 				</div>
 				<div class = "search-check-class" >
-					<input type = "checkbox" name = "check-class" value = "民營遊憩區" onclick = "drawBySearch();" checked>民營遊憩區
+					<input type = "checkbox" name = "check-class" value = "國家公園" onclick = "drawBySearch();" checked> 國家公園 <br>
 				</div>
 				<div class = "search-check-class" >
-					<input type = "checkbox" name = "check-class" value = "國家風景區" onclick = "drawBySearch();" checked>國家風景區 <br>
+					<input type = "checkbox" name = "check-class" value = "民營遊憩區" onclick = "drawBySearch();" checked> 民營遊憩區
 				</div>
 				<div class = "search-check-class" >
-					<input type = "checkbox" name = "check-class" value = "海水浴場" onclick = "drawBySearch();" checked>海水浴場
+					<input type = "checkbox" name = "check-class" value = "國家風景區" onclick = "drawBySearch();" checked> 國家風景區 <br>
 				</div>
 				<div class = "search-check-class" >
-					<input type = "checkbox" name = "check-class" value = "森林遊樂區" onclick = "drawBySearch();" checked>森林遊樂區 <br>
+					<input type = "checkbox" name = "check-class" value = "海水浴場" onclick = "drawBySearch();" checked> 海水浴場
 				</div>
 				<div class = "search-check-class" >
-					<input type = "checkbox" name = "check-class" value = "古蹟、歷史建物" onclick = "drawBySearch();" checked>古蹟、歷史建物
+					<input type = "checkbox" name = "check-class" value = "森林遊樂區" onclick = "drawBySearch();" checked> 森林遊樂區 <br>
 				</div>
 				<div class = "search-check-class" >
-					<input type = "checkbox" name = "check-class" value = "縣級風景特定區" onclick = "drawBySearch();" checked>縣級風景特定區 <br>
+					<input type = "checkbox" name = "check-class" value = "古蹟、歷史建物" onclick = "drawBySearch();" checked> 古蹟、歷史建物
 				</div>
 				<div class = "search-check-class" >
-					<input type = "checkbox" name = "check-class" value = "寺廟" onclick = "drawBySearch();" checked>寺廟
+					<input type = "checkbox" name = "check-class" value = "縣級風景特定區" onclick = "drawBySearch();" checked> 縣級風景特定區 <br>
 				</div>
 				<div class = "search-check-class" >
-					<input type = "checkbox" name = "check-class" value = "其他" onclick = "drawBySearch();" checked>其他 <br>
+					<input type = "checkbox" name = "check-class" value = "寺廟" onclick = "drawBySearch();" checked> 寺廟
+				</div>
+				<div class = "search-check-class" >
+					<input type = "checkbox" name = "check-class" value = "其他" onclick = "drawBySearch();" checked> 其他 <br>
 				</div>
 				</div>
 
 				<div id = "dividing-line"><hr></div>
 
 				<div id = "pop-bot">
+				<div class = "toggleall">
+					<input type = "checkbox" name = "check-all-region" onclick = "ToggleAllRegion();" checked> 全選(縣市)
+				</div>
 				<div class = "search-check-region" >
 					<input type = "checkbox" name = "check-region" value = "台北市" onclick = "drawBySearch();" checked> 臺北市
 				</div>

@@ -30,16 +30,20 @@ var svg = d3.select("#chart").append("svg")
     .attr("height", height)
     .attr("class", "bubble");
 
+var tooltip ;
+
 var node = svg.selectAll(".node");
 var _root = 0;
 var data_class = 0;
 var data_region = 0;
-var firstCirclePadding = 100;
+var firstCirclePadding = 130;
 var firstR = [];
 var firstR_region = [];
 
 var x_padding = 0;
 var search_anything = 0;
+
+var tip_x, tip_y;
 
 d3.json(dataUrl, function(error, root) {
 	// console.log(classes(root));
@@ -53,10 +57,23 @@ d3.json(dataUrl, function(error, root) {
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + (d.x + x_padding) + "," + d.y + ")"; })
       .on("mouseover", function(d){
+        // console.log(d);
+        $("#risetip-film-name").text("景點名稱：" + d.spotName);
+        $("#risetip-one-bo").text("當月人數：" + d.value.toString() ) ;
+        // $("#risetip-sum-bo").text("地區：" +  d["region"]);
+        tip_x = d.x;
+        tip_y = d.y;
         d3.select(this).select("circle").style("stroke-width", "3px");
+        d3.select(".overall_tip").transition()
+          .attr("transform", function(){
+            return "translate(" + (tip_x + x_padding + 15) + "," + (tip_y - 85) + ")";
+          })
+          .style("display", "inline")
+          .duration(500);
       })
       .on("mouseout", function(d){
         d3.select(this).select("circle").style("stroke-width", "1px");
+        d3.select(".overall_tip").transition().style("display", "none").duration(1000).delay(1500);
       });
 
   node.append("title")
@@ -74,6 +91,35 @@ d3.json(dataUrl, function(error, root) {
           return d.spotName.substring(0, d.r / 3); 
         else return null;
       });
+
+    tooltip= svg.append("g")
+      .attr("class","overall_tip")
+      .style("display", "none")
+      .attr("transform", "translate(150,100)");
+
+    tooltip.append("rect")
+      .attr("id", "risetip-frame")
+      .attr("stroke-width", 1)
+      .attr("stroke", "black")
+      .attr("fill", "white")
+      .attr("width", 250)
+      .attr("height", 70)
+      .attr("transform", "translate(0,0)");
+
+    tooltip.append("text")
+      .attr("id", "risetip-film-name")
+      .text("電影名稱：")
+      .attr("transform", "translate(10,20)");
+
+    tooltip.append("text")
+      .attr("id", "risetip-one-bo")
+      .text("單週票房：100萬")
+      .attr("transform", "translate(10,40)");
+
+    tooltip.append("text")
+      .attr("id", "risetip-sum-bo")
+      .text("總票房：8000萬")
+      .attr("transform", "translate(10,60)");
 
 });
 
@@ -130,7 +176,7 @@ $("#overall-btn").click(function(){
     drawOverall();
     d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
     d3.select("#slider-scale").transition().style("opacity", 1);
-    d3.select("#icons").transition().style("opacity", 1);
+    d3.select("#icons").transition().style("display", "inline");
   }
   document.getElementById("overall-btn").style.color = "#000000";
 });
@@ -142,7 +188,7 @@ $("#class-btn").click(function(){
   else{
     document.getElementById(getBtnId(filter_now)).style.color = "#808080";
     filter_now = 2;
-    d3.select("#icons").transition().style("opacity", 0);
+    d3.select("#icons").transition().style("display", "none");
     // d3.select("svg").transition().style("opacity", 0).remove();
     d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
     d3.select("#slider-scale").transition().style("opacity", 0);
@@ -160,7 +206,7 @@ $("#region-btn").click(function(){
   else{
     document.getElementById(getBtnId(filter_now)).style.color = "#808080";
     filter_now = 3;
-    d3.select("#icons").transition().style("opacity", 0);
+    d3.select("#icons").transition().style("display", "none");
     d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
     d3.select("#slider-scale").transition().style("opacity", 0);
     drawByRegion();
@@ -181,7 +227,7 @@ $("#search-btn").click(function(){
     drawBySearch();
     d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
     d3.select("#slider-scale").transition().style("opacity", 1);
-    d3.select("#icons").transition().style("opacity", 1);
+    d3.select("#icons").transition().style("display", "inline");
     // d3.select("#icons").transition().style("opacity", 0);
     // d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
       document.getElementById("popup").style.visibility = "visible";
@@ -333,17 +379,42 @@ function drawByClass(){
       'cy': function(d){ 
           var str = d['Class'];
           var classIndex;
+          var str_text;
+          var attr_class;
           
-          if(str == "國家公園" || str == "國家風景區")
+          if(str == "國家公園" || str == "國家風景區"){
             classIndex = getClassIdx_forClass(d['Detail_Class']);
-          else
+            str_text = d['Detail_Class'];
+            attr_class = "draw-text-class-uniq"
+          }
+          else{
             classIndex = getClassIdx_forClass(d['Class']);
+            str_text = d['Class'];
+            attr_class = "draw-text-class"
+          }
+
           counter_y[classIndex]++;
           if (counter_y[classIndex] == 1) 
-            n.append("text")
-             .attr("x", firstX[classIndex])
-             .attr("y", getYY(classIndex) - firstR[classIndex])
-             .text("WTF");
+            if(classIndex == 5 || classIndex == 11){
+              n.append("text")
+               .attr("x", firstX[classIndex] - firstR[classIndex])
+               .attr("y", getYY(classIndex) - firstR[classIndex] - 20)
+               .text(str_text)
+               .attr("class", attr_class);
+
+              n.append("text")
+               .attr("x", firstX[classIndex] - firstR[classIndex])
+               .attr("y", getYY(classIndex) - firstR[classIndex] - 60)
+               .text(str)
+               .attr("class", "draw-text-class");
+            }
+            else{
+              n.append("text")
+               .attr("x", firstX[classIndex] - firstR[classIndex])
+               .attr("y", getYY(classIndex) - firstR[classIndex] - 20)
+               .text(str_text)
+               .attr("class", attr_class);
+            }
           return getYY(classIndex);
       },
 
@@ -373,6 +444,8 @@ function drawByRegion(){
   var cx_region = [];
   var r_region = [];
   var counter = []; 
+  var counter_y = [];
+  var firstX_region = [];
 
   data_region.sort(function(a,b){return b[yr][idx] - a[yr][idx] });
 
@@ -388,6 +461,8 @@ function drawByRegion(){
     r_region[i] = 0;
     counter[i] = 0;
     firstR_region[i] = 0;
+    counter_y[i] = 0;
+    firstX_region[i] = 0;
     // classNum[i] = 0;
     h += firstCirclePadding + 2 * (rScale(data_region[i][yr][idx])/para);
   }
@@ -432,6 +507,7 @@ function drawByRegion(){
                 else {
                   firstR_region[x] = r_now/para;
                   cx_region[x] = cx_region[x] + r_now/para;
+                  firstX_region[x] = cx_region[x];
                 }
                 r_region[x] = r_now/para;
                 return cx_region[x] + x_padding;
@@ -442,6 +518,15 @@ function drawByRegion(){
         'cy': function(d){
           var s = d['region'];
           var classIndex = getRegionIdx(s);
+          var ss = modRegionName(s);
+
+          counter_y[classIndex]++;
+          if (counter_y[classIndex] == 1) 
+            n.append("text")
+             .attr("x", firstX_region[classIndex] - firstR_region[classIndex])
+             .attr("y", getRegionYY(classIndex) - firstR_region[classIndex] - 20)
+             .text(ss)
+             .attr("class", "draw-text-region");
           
           return getRegionYY(classIndex);
         },
@@ -465,8 +550,12 @@ function drawBySearch(){
 
   var class_checked_list = [];
   var region_checked_list = [];
+  var toggleallclass_boxes = document.getElementsByName('check-all-class');
+  var toggleallregion_boxes = document.getElementsByName('check-all-region');
   var classcheckboxes = document.getElementsByName('check-class');
   var regioncheckboxes = document.getElementsByName('check-region');
+  var count_check_class = 0;
+  var count_check_region = 0;
 
   for (var i = 0; i < 10; i ++){
     class_checked_list[i] = 0;
@@ -477,6 +566,12 @@ function drawBySearch(){
       var x = getClassIdx(classcheckboxes[i].value);
       class_checked_list[x] = 1;
     }
+    else{
+      count_check_class++;
+      toggleallclass_boxes[0].checked = false;
+    }
+
+    if(count_check_class == 0) toggleallclass_boxes[0].checked = true;
   }
 
   for (var i = 0; i < 22; i ++){
@@ -488,6 +583,12 @@ function drawBySearch(){
       var x = getRegionIdx(regioncheckboxes[i].value);
       region_checked_list[x] = 1;
     }
+    else{
+      count_check_region++;
+      toggleallregion_boxes[0].checked = false;
+    }
+
+    if(count_check_region == 0) toggleallregion_boxes[0].checked = true;
   }
 
   // console.log (region_checked_list);
@@ -531,7 +632,7 @@ function drawBySearch(){
 
 }
 
-function whenToggleAll(){
+/*function whenToggleAll(){
   var check = document.getElementsByName('check-all');
   var classcheckboxes = document.getElementsByName('check-class');
   var regioncheckboxes = document.getElementsByName('check-region');
@@ -570,6 +671,56 @@ function whenToggleAll(){
   
   
 
+}*/
+
+function ToggleAllClass(){
+  var check = document.getElementsByName('check-all-class');
+  var classcheckboxes = document.getElementsByName('check-class');
+  if (check[0].checked) {
+    for (var i = 0, n = classcheckboxes.length; i < n; i++) {
+      if (!classcheckboxes[i].checked) {
+        classcheckboxes[i].checked = true;
+      }
+    }
+    drawBySearch();
+  }
+  else{
+    for (var i = 0, n = classcheckboxes.length; i < n; i++) {
+      if (classcheckboxes[i].checked) {
+        classcheckboxes[i].checked = false;
+      }
+    }
+    d3.select("svg").remove();
+    svg = d3.select("#chart").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("class", "bubble");
+  }
+}
+
+function ToggleAllRegion(){
+  var check = document.getElementsByName('check-all-region');
+  var regioncheckboxes = document.getElementsByName('check-region');
+  if (check[0].checked) {
+    for (var i = 0, n = regioncheckboxes.length; i < n; i++) {
+      if (!regioncheckboxes[i].checked) {
+        regioncheckboxes[i].checked = true;
+      }
+    }
+    drawBySearch();
+  }
+  else{
+    for (var i = 0, n = regioncheckboxes.length; i < n; i++) {
+      if (regioncheckboxes[i].checked) {
+        regioncheckboxes[i].checked = false;
+      }
+    }
+    d3.select("svg").remove();
+    svg = d3.select("#chart").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("class", "bubble");
+  }
 }
 
 function getClassName(str){
@@ -900,4 +1051,12 @@ function getBtnId(i){
     case 4:
       return "search-btn";
   }
+}
+
+function modRegionName(s){
+  if(s[0] == '台')
+    return ('臺' + s[1] + s[2]);
+  else if (s == "桃園縣")
+    return "桃園市"
+  else return s;
 }

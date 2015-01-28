@@ -148,6 +148,7 @@ div.editors{
   font-size: 24px;
   margin-left: 4px;
   outline: none;
+  cursor: pointer;
 }
 
 #class-btn{
@@ -161,6 +162,7 @@ div.editors{
   font-size: 24px;
   margin-left: 4px;
   outline: none;
+  cursor: pointer;
 }
 
 #region-btn{
@@ -174,6 +176,7 @@ div.editors{
   font-size: 24px;
   margin-left: 4px;
   outline: none;
+  cursor: pointer;
 }
 
 #search-btn{
@@ -187,6 +190,7 @@ div.editors{
   font-size: 24px;
   margin-left: 4px;
   outline: none;
+  cursor: pointer;
 }
 
 .btn-border-first{
@@ -206,12 +210,12 @@ div.editors{
 
 #popup{
   position: absolute;
-  bottom: -560px;
+  bottom: -610px;
   right: 2px;
   background: #f2f2f2;
   opacity: 0.9;
   width: 440px;
-  height: 500px;
+  height: 550px;
   font-size: 17px;
   color: #666666;
   border-color: #262626;
@@ -220,11 +224,15 @@ div.editors{
   z-index: 1;
 }
 
-#toggleall{
+#cancel-pop{
   width: 440px;
   height: 30px;
   margin-left: 35px;
   margin-top: 10px;
+}
+
+.toggleall{
+  margin-left: 35px;
 }
 
 .search-check-class{
@@ -233,6 +241,10 @@ div.editors{
   float: left;
   margin-left: 35px;
   margin-top: 10px;
+}
+
+input{
+  cursor: pointer;
 }
 
 #pop-top{
@@ -269,6 +281,21 @@ div.editors{
 #icons{
   position: absolute;
   margin-top: 10px;
+}
+
+.draw-text-class{
+  font-size: 30px;
+  font-family: defFont;
+}
+
+.draw-text-class-uniq{
+  font-size: 17px;
+  font-family: defFont;
+}
+
+.draw-text-region{
+  font-size: 30px;
+  font-family: defFont;
 }
 
 .aa {fill: #f47373; stroke:#c13636; stroke-width:1pt;}  /*公營遊憩區*/
