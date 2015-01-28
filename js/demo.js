@@ -327,6 +327,10 @@ function drawByClass(){
   var allX = {};
   var allY = {};
 
+  var biggestClasses = [];
+  var counter_names = [];
+  var allClasses = [];
+
   data_class.sort(function(a,b){return b[yr][idx] - a[yr][idx] });
 
   var Rmax = d3.max(data_class, function(d){return d[yr][idx]}),
@@ -343,11 +347,14 @@ function drawByClass(){
     firstR[i] = 0;
     counter_y[i] = 0;
     firstX[i] = 0;
+    biggestClasses[i] = 0;
+    counter_names[i] = 0;
+    allClasses[i] = 0;
     // classNum[i] = 0;
     h += firstCirclePadding + 2 * (rScale(data_class[i][yr][idx])/para);
   }
 
-   h -= 200;
+   h -= 100;
 
   if (h < 900) h = 900; // svg height at least 900px
 
@@ -356,7 +363,30 @@ function drawByClass(){
       if(data_class[i]['Class'] == "公營遊憩區")
         classNum++;
     }
+
+    var s = data_class[i]['Class'];
+    var x;
+    if(s == "國家公園" || s == "國家風景區"){
+      x = getClassIdx_forClass(data_class[i]['Detail_Class']);
+      if(counter_names[x] == 0){
+        biggestClasses[x] = data_class[i]['Detail_Class'];
+        allClasses[x] = s;
+        counter_names[x] ++;
+      }
+    }
+    else{
+      x = getClassIdx_forClass(data_class[i]['Class']);
+      if(counter_names[x] == 0){
+        biggestClasses[x] = data_class[i]['Class'];
+        allClasses[x] = s;
+        counter_names[x] ++;
+      }
+    }
+    // console.log(biggestClasses);
+    // console.log(counter_names);
   }
+
+  // console.log (biggestClasses);
   // console.log(classNum);
 
   var svg_class = d3.select('#chart').append('svg').attr({'width': w, 'height': h});
@@ -430,7 +460,7 @@ function drawByClass(){
           counter[x]++;
                 if (counter[x] != 1) {
                   if(x == 0){
-                    cx_classify[x] = 2* firstR[x] + (counter[x] - 1) * ( w /classNum);
+                    cx_classify[x] = 2* firstR[x] + (counter[x] - 1) * ( w / (classNum+1));
                   }
                   else
                     cx_classify[x] = cx_classify[x] + r_classify[x] + r_now/para;
@@ -450,21 +480,21 @@ function drawByClass(){
       'cy': function(d){ 
           var str = d['Class'];
           var classIndex;
-          var str_text;
-          var attr_class;
+          // var str_text;
+          // var attr_class;
           
           if(str == "國家公園" || str == "國家風景區"){
             classIndex = getClassIdx_forClass(d['Detail_Class']);
-            str_text = d['Detail_Class'];
-            attr_class = "draw-text-class-uniq"
+            // str_text = d['Detail_Class'];
+            // attr_class = "draw-text-class-uniq"
           }
           else{
             classIndex = getClassIdx_forClass(d['Class']);
-            str_text = d['Class'];
-            attr_class = "draw-text-class"
+            // str_text = d['Class'];
+            // attr_class = "draw-text-class"
           }
 
-          counter_y[classIndex]++;
+          /*counter_y[classIndex]++;
           if (counter_y[classIndex] == 1) 
             if(classIndex == 5 || classIndex == 11){
               nnn.append("text")
@@ -485,7 +515,7 @@ function drawByClass(){
                .attr("y", getYY(classIndex) - firstR[classIndex] - 20)
                .text(str_text)
                .attr("class", attr_class);
-            }
+            }*/
           allY[d['Scenic_Spots']] = getYY(classIndex);
           return getYY(classIndex);
       },
@@ -500,6 +530,55 @@ function drawByClass(){
         return classname;
       }
     });
+    // console.log(biggestClasses);
+    for(var i = 0; i < 27; i++){
+      var ss;
+      if(allClasses[i] == "國家公園" || allClasses[i] == "國家風景區")
+        ss = "draw-text-class-uniq";
+      else
+        ss = "draw-text-class"
+
+      if(i == 5){
+        d3.select("svg").append("text")
+          .attr("class", "class-text")
+          .attr("x", firstX[i] - firstR[i])
+          .attr("y", getYY(i) - firstR[i] - 20)
+          .text(biggestClasses[i])
+          .attr("class", "draw-text-class-uniq");
+
+        d3.select("svg").append("text")
+          .attr("class", "class-text")
+          .attr("x", firstX[i] - firstR[i])
+          .attr("y", getYY(i) - firstR[i] - 60)
+          .text("國家公園")
+          .attr("class", "draw-text-class");
+      }
+      else if(i == 11){
+        d3.select("svg").append("text")
+          .attr("class", "class-text")
+          .attr("x", firstX[i] - firstR[i])
+          .attr("y", getYY(i) - firstR[i] - 20)
+          .text(biggestClasses[i])
+          .attr("class", "draw-text-class-uniq");
+
+        d3.select("svg").append("text")
+          .attr("class", "class-text")
+          .attr("x", firstX[i] - firstR[i])
+          .attr("y", getYY(i) - firstR[i] - 60)
+          .text("國家風景區")
+          .attr("class", "draw-text-class");
+      }
+      else{
+        // console.log(biggestClasses[i]);
+
+        d3.select("svg").append("text")
+          .attr("class", "class-text")
+          .attr("x", firstX[i] - firstR[i])
+          .attr("y", getYY(i) - firstR[i] - 20)
+          .text(biggestClasses[i])
+          .attr("class", ss);
+      }
+    }
 
     createToolTip_Class(svg_class);
 /*    console.log(allX);
@@ -527,6 +606,7 @@ function drawByRegion(){
 
   var biggestNames = [];
   var counter_names = [];
+  var biggestRegions = [];
 
   data_region.sort(function(a,b){return b[yr][idx] - a[yr][idx] });
 
@@ -544,8 +624,8 @@ function drawByRegion(){
     firstR_region[i] = 0;
     counter_y[i] = 0;
     firstX_region[i] = 0;
-    biggestNames[i] = 0;
     counter_names[i] = 0;
+    biggestRegions[i] = 0;
     // classNum[i] = 0;
     h += firstCirclePadding + 2 * (rScale(data_region[i][yr][idx])/para);
   }
@@ -553,7 +633,7 @@ function drawByRegion(){
   for (var i in data_region){
     var x = getRegionIdx(data_region[i]['region']);
     if(counter_names[x] == 0){
-      biggestNames[x] = data_region[i]['Scenic_Spots'];
+      biggestRegions[x] = data_region[i]['region'];
       counter_names[x] ++;
     }
   }
@@ -606,8 +686,8 @@ function drawByRegion(){
             d3.select(".tool_tip").transition().style("display", "none").duration(1000).delay(500);
           });
 
-    var nnn = svg_region.selectAll('.region-text').data(data_region).enter()
-                  .append('g').attr('class', 'region-text');
+    /*var nnn = svg_region.selectAll('.region-text').data(data_region).enter()
+                  .append('g').attr('class', 'region-text');*/
       /*n.append("title")
       .text(function(d) { return d['Scenic_Spots'] + ": " + format(d[yr][idx]); });*/
 
@@ -644,15 +724,15 @@ function drawByRegion(){
         'cy': function(d){
           var s = d['region'];
           var classIndex = getRegionIdx(s);
-          var ss = modRegionName(s);
+          // var ss = modRegionName(s);
 
-          counter_y[classIndex]++;
+          /*counter_y[classIndex]++;
           if (counter_y[classIndex] == 1) 
              nnn.append("text")
              .attr("x", firstX_region[classIndex] - firstR_region[classIndex])
              .attr("y", getRegionYY(classIndex) - firstR_region[classIndex] - 20)
              .text(ss)
-             .attr("class", "draw-text-region");
+             .attr("class", "draw-text-region");*/
           allY[d['Scenic_Spots']] = getRegionYY(classIndex);
           return getRegionYY(classIndex);
         },
@@ -667,6 +747,15 @@ function drawByRegion(){
           return classname;
         }
       });
+
+      for(var i = 0; i < 22; i++){
+        d3.select("svg").append("text")
+          .attr("class", "region-text")
+          .attr("x", firstX_region[i] - firstR_region[i])
+          .attr("y", getRegionYY(i) - firstR_region[i] - 20)
+          .text(biggestRegions[i])
+          .attr("class", "draw-text-region");
+      }
 
       createToolTip_Class(svg_region);
   // console.log(counter);
