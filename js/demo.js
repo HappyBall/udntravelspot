@@ -625,7 +625,35 @@ function drawByClass(){
           .text(biggestClasses[i])
           .attr("class", ss);
       }
+
+      d3.select("svg").append("line")
+        .attr("x1", 0)
+        .attr("y1", getYY(i))
+        .attr("x2", 1200)
+        .attr("y2", getYY(i))
+        .attr("class", "draw_lines");
+
+      d3.select("svg").append("line")
+        .attr("x1", 0)
+        .attr("y1", getYY(i) + firstR[i])
+        .attr("x2", 0)
+        .attr("y2", getYY(i) - firstR[i])
+        .attr("class", "draw_lines");
+
+      d3.select("svg").append("line")
+        .attr("x1", 1199)
+        .attr("y1", getYY(i) + firstR[i])
+        .attr("x2", 1199)
+        .attr("y2", getYY(i) - firstR[i])
+        .attr("class", "draw_lines");
     }
+
+    d3.select("svg").append("line")
+        .attr("x1", 0)
+        .attr("y1", 0)
+        .attr("x2", 1200)
+        .attr("y2", 0)
+        .style("stroke", "black");
 
     createToolTip_Class(svg_class);
 /*    console.log(allX);
@@ -802,7 +830,36 @@ function drawByRegion(){
           .attr("y", getRegionYY(i) - firstR_region[i] - 20)
           .text(biggestRegions[i])
           .attr("class", "draw-text-region");
+
+        d3.select("svg").append("line")
+          .attr("x1", 0)
+          .attr("y1", getRegionYY(i))
+          .attr("x2", 1200)
+          .attr("y2", getRegionYY(i))
+          .attr("class", "draw_lines");
+
+        d3.select("svg").append("line")
+          .attr("x1", 0)
+          .attr("y1", getRegionYY(i) + firstR_region[i])
+          .attr("x2", 0)
+          .attr("y2", getRegionYY(i) - firstR_region[i])
+          .attr("class", "draw_lines");
+
+        d3.select("svg").append("line")
+          .attr("x1", 1200)
+          .attr("y1", getRegionYY(i) + firstR_region[i])
+          .attr("x2", 1200)
+          .attr("y2", getRegionYY(i) - firstR_region[i])
+          .attr("class", "draw_lines");  
+
       }
+
+      d3.select("svg").append("line")
+        .attr("x1", 0)
+        .attr("y1", 0)
+        .attr("x2", 1200)
+        .attr("y2", 0)
+        .style("stroke", "black");
 
       createToolTip_Class(svg_region);
   // console.log(counter);

@@ -68,11 +68,11 @@
 .noUi-horizontal .noUi-handle {
 	/*width: 34px;
 	height: 28px;*/
-	width: 16px;
-	height: 36px;
+	width: 31px;
+	height: 52px;
 	background: url("../img/pin.png") 50% 50% repeat-x;
-	left: -8px;
-	top: -6px;
+	left: -16px;
+	top: -17px;
 
 }
 .noUi-vertical {

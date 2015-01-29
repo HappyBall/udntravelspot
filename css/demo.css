@@ -225,11 +225,12 @@ div.editors{
   z-index: 1;
 }
 
-#cancel-pop{
+#notice{
   width: 440px;
   height: 30px;
-  margin-left: 35px;
+  margin-left: 37px;
   margin-top: 10px;
+  font-family: defFont;
 }
 
 .toggleall{
@@ -312,7 +313,7 @@ input{
 }
 
 #tip-tour-number{
-  font-size: 14px;
+  font-size: 17px;
   color: #000000;
   font-family: defFont;
 }
@@ -327,6 +328,11 @@ input{
   font-size: 14px;
   color: #666666;
   font-family: defFont;
+}
+
+.draw_lines{
+  stroke: black;
+  opacity: 0.5;
 }
 
 .aa {fill: #f47373; stroke:#c13636; stroke-width:1pt;}  /*公營遊憩區*/
