@@ -100,7 +100,7 @@ div.editors{
 }
 
 #slider{
-	margin-top: 20px;
+	margin-top: 5px;
   z-index: 0;
 }
 
@@ -281,7 +281,7 @@ input{
 
 #icons{
   position: absolute;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .draw-text-class{
@@ -303,6 +303,30 @@ input{
   float: right;
   font-family: defFont;
   font-size: 17px;
+}
+
+#tip-spot-name{
+  font-size: 17px;
+  color: #000000;
+  font-family: defFont;
+}
+
+#tip-tour-number{
+  font-size: 14px;
+  color: #000000;
+  font-family: defFont;
+}
+
+#tip-region{
+  font-size: 14px;
+  color: #666666;
+  font-family: defFont;
+}
+
+#tip-class{
+  font-size: 14px;
+  color: #666666;
+  font-family: defFont;
 }
 
 .aa {fill: #f47373; stroke:#c13636; stroke-width:1pt;}  /*公營遊憩區*/
