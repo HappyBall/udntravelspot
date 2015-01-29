@@ -481,8 +481,8 @@ function drawByClass(){
               d3.select(this).select("circle").style("stroke-width", "1px");
               d3.select(".tool_tip").transition().style("display", "none").duration(1000).delay(500);
             });
-  var nnn = svg_class.selectAll('.class-text').data(data_class).enter()
-                  .append('g').attr('class', 'class-text');
+  /*var nnn = svg_class.selectAll('.class-text').data(data_class).enter()
+                  .append('g').attr('class', 'class-text');*/
     /*n.append("title")
     .text(function(d) { return d['Scenic_Spots'] + ": " + format(d[yr][idx]); });*/
     
