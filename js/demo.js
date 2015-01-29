@@ -9,7 +9,7 @@ regiondataUrl = dataPath + regiondataFile;
 document.getElementById("popup").style.visibility = "hidden";
 
 var default_yr = '2014';
-var default_mn = 11;
+var default_mn = 12;
 var now_yr = default_yr;
 var now_mn = default_mn;
 
@@ -138,9 +138,9 @@ d3.select(self.frameElement).style("height", height + "px");
 
 $(function() {
   $( "#slider" ).slider({
-    value:118,
+    value:119,
     min: 0,
-    max: 118,
+    max: 119,
     step: 1,
     slide: function( event, ui ) {
       // console.log(ui.value);
@@ -152,7 +152,7 @@ $(function() {
       else drawBySearch();
     }
   });
-  $( "#date-display" ).text("2014 年 11 月");
+  $( "#date-display" ).text("2014 年 12 月");
 });
 
 $("#overall-btn").click(function(){
