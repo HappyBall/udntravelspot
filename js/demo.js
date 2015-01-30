@@ -1519,7 +1519,7 @@ function makeMouseOutFn(elem){
     return function onclick(event) {
 
         var e = event.target;
-        if (~list.indexOf(e)) {
+        if (~list.indexOf(e) || e == document.getElementById("search-btn")) {
             return;
         }
         document.getElementById("popup").style.visibility = "hidden";
