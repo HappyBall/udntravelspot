@@ -144,7 +144,8 @@ div.editors{
   float: left;
   font-family: defFont;
   color: #000000;
-  background: #ffffff;
+  background: #b6f2d0;
+  border-radius: 5px;
   border: 0;
   font-size: 24px;
   margin-left: 4px;
@@ -159,6 +160,7 @@ div.editors{
   font-family: defFont;
   color: #808080;
   background: #ffffff;
+  border-radius: 5px;
   border: 0;
   font-size: 24px;
   margin-left: 4px;
@@ -173,6 +175,7 @@ div.editors{
   font-family: defFont;
   color: #808080;
   background: #ffffff;
+  border-radius: 5px;
   border: 0;
   font-size: 24px;
   margin-left: 4px;
@@ -187,6 +190,7 @@ div.editors{
   font-family: defFont;
   color: #808080;
   background: #ffffff;
+  border-radius: 5px;
   border: 0;
   font-size: 24px;
   margin-left: 4px;
