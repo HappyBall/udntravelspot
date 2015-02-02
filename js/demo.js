@@ -854,9 +854,9 @@ function drawByRegion(){
           .attr("class", "draw_lines");
 
         d3.select("svg").append("line")
-          .attr("x1", 1200)
+          .attr("x1", 1199)
           .attr("y1", getRegionYY(i) + firstR_region[i])
-          .attr("x2", 1200)
+          .attr("x2", 1199)
           .attr("y2", getRegionYY(i) - firstR_region[i])
           .attr("class", "draw_lines");  
 
