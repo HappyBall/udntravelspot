@@ -192,7 +192,7 @@ $("#slider").on('slide', function(){
 
 $("#overall-btn").click(function(){
   document.getElementById("popup").style.visibility = "hidden";
-  document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
+  document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "inline");
 
   if (filter_now == 1);
@@ -211,7 +211,7 @@ $("#overall-btn").click(function(){
 
 $("#class-btn").click(function(){
   document.getElementById("popup").style.visibility = "hidden";
-  document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
+  document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
   if (filter_now == 2);
   else{
@@ -232,7 +232,7 @@ $("#class-btn").click(function(){
 
 $("#region-btn").click(function(){
   document.getElementById("popup").style.visibility = "hidden";
-  document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
+  document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
   if (filter_now == 3);
   else{
@@ -1531,7 +1531,7 @@ function makeMouseOutFn(elem){
             return;
         }
         document.getElementById("popup").style.visibility = "hidden";
-        document.getElementById("search-triangle").src = "../img/icon_triangle_down.jpg";
+        document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
         // handle mouse event here!
     };
 }
