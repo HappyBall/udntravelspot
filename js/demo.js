@@ -1,4 +1,3 @@
-
 dataPath = 'data/';
 dataFile = 'travel_spot_mod_final.json';
 dataUrl = dataPath + dataFile;
@@ -52,6 +51,15 @@ var search_anything = 0;
 
 var tip_x, tip_y;
 
+var map = {};
+d3.csv("data/spots_mapping.csv", function(mapping_data){ 
+  for (var i in mapping_data){
+    map[mapping_data[i]['觀光遊憩區']] = mapping_data[i]['縮名'];
+  }
+});
+
+
+
 d3.json(dataUrl, function(error, root) {
 	// console.log(classes(root));
 	//console.debug(JSON.stringify(root));
@@ -80,6 +88,7 @@ d3.json(dataUrl, function(error, root) {
         var r = d.region;
         var regs = [];
         // console.log(modNum(d.value.toString()));
+        $("#tip-date").text(now_yr + " 年 " + now_mn + " 月");
         $("#tip-spot-name").text(d.spotName);
         $("#tip-tour-number").text(modNum(d.value.toString()) + "位遊客") ;
         if (d.Class == "國家公園" || d.Class == "國家風景區"){
@@ -133,9 +142,9 @@ d3.json(dataUrl, function(error, root) {
     for(var i = 0; i < names.length; i++){
       d3.select("svg").append("text")
         .attr("class", "overall-text")
-        .attr("x", text_x[i] - ((names[i].length/5) * 29.5))
+        .attr("x", text_x[i] - ((map[names[i]].length/5) * 30))
         .attr("y", text_y[i] + 4)
-        .text(names[i])
+        .text(map[names[i]])
         .attr("class", "draw-text-overall");
     }
 
@@ -194,6 +203,7 @@ $("#overall-btn").click(function(){
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "inline");
+  $("#icons-region").css("display", "none");
 
   if (filter_now == 1);
   else{
@@ -201,7 +211,8 @@ $("#overall-btn").click(function(){
     document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
     filter_now = 1;
     drawOverall();
-    d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
+    $("#slider").css("display", "inline");
+    // d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
     d3.select("#slider-scale").transition().style("opacity", 1);
     d3.select("#icons").transition().style("display", "inline");
   }
@@ -213,6 +224,7 @@ $("#class-btn").click(function(){
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
+  $("#icons-region").css("display", "none");
   if (filter_now == 2);
   else{
     document.getElementById(getBtnId(filter_now)).style.color = "#808080";
@@ -220,7 +232,8 @@ $("#class-btn").click(function(){
     filter_now = 2;
     d3.select("#icons").transition().style("display", "none");
     // d3.select("svg").transition().style("opacity", 0).remove();
-    d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
+    $("#slider").css("display", "none");
+    // d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
     d3.select("#slider-scale").transition().style("opacity", 0);
     // console.log(_root);
     drawByClass();
@@ -234,13 +247,15 @@ $("#region-btn").click(function(){
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
+  $("#icons-region").css("display", "inline");
   if (filter_now == 3);
   else{
     document.getElementById(getBtnId(filter_now)).style.color = "#808080";
     document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
     filter_now = 3;
     d3.select("#icons").transition().style("display", "none");
-    d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
+    $("#slider").css("display", "none");
+    // d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
     d3.select("#slider-scale").transition().style("opacity", 0);
     drawByRegion();
     // d3.select("svg").transition().style("opacity", 0).remove();
@@ -251,6 +266,7 @@ $("#region-btn").click(function(){
 
 $("#search-btn").click(function(){
   d3.select("#remark").transition().style("display", "inline");
+  $("#icons-region").css("display", "none");
   if (filter_now == 4){
     if (document.getElementById("popup").style.visibility == "hidden")
       document.getElementById("popup").style.visibility = "visible";
@@ -261,7 +277,8 @@ $("#search-btn").click(function(){
     document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
     filter_now = 4;
     drawBySearch();
-    d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
+    $("#slider").css("display", "inline");
+    // d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
     d3.select("#slider-scale").transition().style("opacity", 1);
     d3.select("#icons").transition().style("display", "inline");
     // d3.select("#icons").transition().style("opacity", 0);
@@ -310,6 +327,7 @@ function drawOverall(){
         var tip_region_str;
         var r = d.region;
         var regs = [];
+        $("#tip-date").text(now_yr + " 年 " + now_mn + " 月");
         $("#tip-spot-name").text(d.spotName);
         $("#tip-tour-number").text(modNum(d.value.toString()) + "位遊客") ;
         if (d.Class == "國家公園" || d.Class == "國家風景區"){
@@ -360,9 +378,9 @@ function drawOverall(){
       for(var i = 0; i < names.length; i++){
       d3.select("svg").append("text")
         .attr("class", "overall-text")
-        .attr("x", text_x[i] - ((names[i].length/5) * 29.5))
+        .attr("x", text_x[i] - ((map[names[i]].length/5) * 30))
         .attr("y", text_y[i] + 4)
-        .text(names[i])
+        .text(map[names[i]])
         .attr("class", "draw-text-overall");
       }
 
@@ -393,6 +411,7 @@ function drawByClass(){
   var biggestClasses = [];
   var counter_names = [];
   var allClasses = [];
+  var biggestNames = [];
 
   data_class.sort(function(a,b){return b[yr][idx] - a[yr][idx] });
 
@@ -413,6 +432,7 @@ function drawByClass(){
     biggestClasses[i] = 0;
     counter_names[i] = 0;
     allClasses[i] = 0;
+    biggestNames[i] = {};
     // classNum[i] = 0;
     h += firstCirclePadding + 2 * (rScale(data_class[i][yr][idx])/para);
   }
@@ -433,6 +453,8 @@ function drawByClass(){
       x = getClassIdx_forClass(data_class[i]['Detail_Class']);
       if(counter_names[x] == 0){
         biggestClasses[x] = data_class[i]['Detail_Class'];
+        biggestNames[x]['spotName'] = data_class[i]['Scenic_Spots'];
+        biggestNames[x]['tourNum'] = data_class[i][now_yr][now_mn - 1];
         allClasses[x] = s;
         counter_names[x] ++;
       }
@@ -441,6 +463,8 @@ function drawByClass(){
       x = getClassIdx_forClass(data_class[i]['Class']);
       if(counter_names[x] == 0){
         biggestClasses[x] = data_class[i]['Class'];
+        biggestNames[x]['spotName'] = data_class[i]['Scenic_Spots'];
+        biggestNames[x]['tourNum'] = data_class[i][now_yr][now_mn - 1];
         allClasses[x] = s;
         counter_names[x] ++;
       }
@@ -448,6 +472,8 @@ function drawByClass(){
     // console.log(biggestClasses);
     // console.log(counter_names);
   }
+
+  console.log(biggestNames);
 
   // console.log (biggestClasses);
   // console.log(classNum);
@@ -464,6 +490,7 @@ function drawByClass(){
             var r = d['region'];
             var regs = [];
             var spot = d['Scenic_Spots']
+            $("#tip-date").text(now_yr + " 年 " + now_mn + " 月");
             $("#tip-spot-name").text(spot);
             $("#tip-tour-number").text(modNum(d[now_yr][now_mn - 1].toString()) + "位遊客") ;
             if (d['Class'] == "國家公園" || d['Class'] == "國家風景區"){
@@ -603,14 +630,12 @@ function drawByClass(){
 
       if(i == 5){
         d3.select("svg").append("text")
-          .attr("class", "class-text")
           .attr("x", firstX[i] - firstR[i])
           .attr("y", getYY(i) - firstR[i] - 20)
           .text(biggestClasses[i])
           .attr("class", "draw-text-class-uniq");
 
         d3.select("svg").append("text")
-          .attr("class", "class-text")
           .attr("x", firstX[i] - firstR[i])
           .attr("y", getYY(i) - firstR[i] - 60)
           .text("國家公園")
@@ -618,14 +643,12 @@ function drawByClass(){
       }
       else if(i == 11){
         d3.select("svg").append("text")
-          .attr("class", "class-text")
           .attr("x", firstX[i] - firstR[i])
           .attr("y", getYY(i) - firstR[i] - 20)
           .text(biggestClasses[i])
           .attr("class", "draw-text-class-uniq");
 
         d3.select("svg").append("text")
-          .attr("class", "class-text")
           .attr("x", firstX[i] - firstR[i])
           .attr("y", getYY(i) - firstR[i] - 60)
           .text("國家風景區")
@@ -635,13 +658,19 @@ function drawByClass(){
         // console.log(biggestClasses[i]);
 
         d3.select("svg").append("text")
-          .attr("class", "class-text")
           .attr("x", firstX[i] - firstR[i])
           .attr("y", getYY(i) - firstR[i] - 20)
           .text(biggestClasses[i])
           .attr("class", ss);
+
       }
 
+      d3.select("svg").append("text")
+          .attr("x", 350)
+          .attr("y", getYY(i) - firstR[i] - 20)
+          .text("最夯：" + biggestNames[i]['spotName'] + " " + modNum(biggestNames[i]['tourNum'].toString()) + "位遊客")
+          .attr("class", "draw-text-biggest");
+        
       d3.select("svg").append("line")
         .attr("x1", 0)
         .attr("y1", getYY(i))
@@ -717,19 +746,30 @@ function drawByRegion(){
     firstX_region[i] = 0;
     counter_names[i] = 0;
     biggestRegions[i] = 0;
+    biggestNames[i] = {};
+    regions_storage = {};
     // classNum[i] = 0;
     h += firstCirclePadding + 2 * (rScale(data_region[i][yr][idx])/para);
   }
 
   for (var i in data_region){
+    if (data_region[i]['Scenic_Spots'] in regions_storage) {
+      regions_storage[data_region[i]['Scenic_Spots']].push(data_region[i]['region']);
+    }
+    else{
+      regions_storage[data_region[i]['Scenic_Spots']] = [];
+      regions_storage[data_region[i]['Scenic_Spots']].push(data_region[i]['region']);
+    }
     var x = getRegionIdx(data_region[i]['region']);
     if(counter_names[x] == 0){
       biggestRegions[x] = data_region[i]['region'];
+      biggestNames[x]['spotName'] = data_region[i]['Scenic_Spots'];
+      biggestNames[x]['tourNum'] = data_region[i][now_yr][now_mn - 1];
       counter_names[x] ++;
     }
   }
 
-  // console.log(biggestNames);
+   // console.log(biggestNames);
 
   // console.log(h);
 
@@ -746,6 +786,7 @@ function drawByRegion(){
             var r = d['region'];
             var regs = [];
             var spot = d['Scenic_Spots']
+            $("#tip-date").text(now_yr + " 年 " + now_mn + " 月");
             $("#tip-spot-name").text(spot);
             $("#tip-tour-number").text(modNum(d[now_yr][now_mn - 1].toString()) + "位遊客") ;
             if (d['Class'] == "國家公園" || d['Class'] == "國家風景區"){
@@ -754,17 +795,29 @@ function drawByRegion(){
             else{
               $("#tip-class").text("類型：" + d['Class']);
             }
-            if (r.length == 6){
-              regs[0] = r.substr(0,3);
-              regs[1] = r.substr(3,3);
-              $("#tip-region").text("縣市：" + regs[0] + "、" + regs[1]);
+            
+            if(regions_storage[d['Scenic_Spots']].length != 1){
+              var r1 = regions_storage[d['Scenic_Spots']][0];
+              var r2 = regions_storage[d['Scenic_Spots']][1];
+              $("#tip-region").text("縣市：" + r1 + "、" + r2);
+              if((spot + '_' + r) in allX){
+                console.log(spot);
+                tip_x = allX[(spot + '_' + r)] + 20;
+                tip_y = allY[(spot + '_' + r)] + 10;
+              }
+              else{
+                tip_x = allX[spot] + 20;
+                tip_y = allY[spot] + 10;
+              }
             }
             else{
               $("#tip-region").text("縣市：" + r);
+              tip_x = allX[spot] + 20;
+              tip_y = allY[spot] + 10;
             }
+            
             // $("#risetip-sum-bo").text("地區：" +  d["region"]);
-            tip_x = allX[spot] + 20;
-            tip_y = allY[spot] + 10;
+            
             d3.select(".tool_tip").transition()
               .attr("transform", function(){
                 return "translate(" + tip_x + "," + tip_y + ")";
@@ -806,7 +859,15 @@ function drawByRegion(){
                   firstX_region[x] = cx_region[x];
                 }
                 r_region[x] = r_now/para;
-                allX[d['Scenic_Spots']] = cx_region[x];
+                if (d['Scenic_Spots'] in allX){
+                  console.log(d['Scenic_Spots']);
+                  console.log(d['region']);
+                  allX[(d['Scenic_Spots'] + "_" + d['region'])] = cx_region[x];
+                }
+                else{
+                  allX[d['Scenic_Spots']] = cx_region[x];
+                }
+
                 return cx_region[x] + x_padding;
           
           }
@@ -824,7 +885,13 @@ function drawByRegion(){
              .attr("y", getRegionYY(classIndex) - firstR_region[classIndex] - 20)
              .text(ss)
              .attr("class", "draw-text-region");*/
-          allY[d['Scenic_Spots']] = getRegionYY(classIndex);
+          if (d['Scenic_Spots'] in allY){
+            allY[(d['Scenic_Spots'] + "_" + d['region'])] = getRegionYY(classIndex);
+          }
+          else{
+            allY[d['Scenic_Spots']] = getRegionYY(classIndex);
+          }
+
           return getRegionYY(classIndex);
         },
 
@@ -841,11 +908,16 @@ function drawByRegion(){
 
       for(var i = 0; i < 22; i++){
         d3.select("svg").append("text")
-          .attr("class", "region-text")
           .attr("x", firstX_region[i] - firstR_region[i])
           .attr("y", getRegionYY(i) - firstR_region[i] - 20)
           .text(biggestRegions[i])
           .attr("class", "draw-text-region");
+
+        d3.select("svg").append("text")
+          .attr("x", 250)
+          .attr("y", getRegionYY(i) - firstR_region[i] - 20)
+          .text("最夯：" + biggestNames[i]['spotName'] + " " + modNum(biggestNames[i]['tourNum'].toString()) + "位遊客")
+          .attr("class", "draw-text-biggest");
 
         d3.select("svg").append("line")
           .attr("x1", 0)
@@ -960,6 +1032,7 @@ function drawBySearch(){
         var tip_region_str;
         var r = d.region;
         var regs = [];
+        $("#tip-date").text(now_yr + " 年 " + now_mn + " 月");
         $("#tip-spot-name").text(d.spotName);
         $("#tip-tour-number").text(modNum(d.value.toString()) + "位遊客") ;
         if (d.Class == "國家公園" || d.Class == "國家風景區"){
@@ -1009,13 +1082,13 @@ function drawBySearch(){
         else return null;
       });*/
   for(var i = 0; i < names.length; i++){
-    d3.select("svg").append("text")
-      .attr("class", "overall-text")
-      .attr("x", text_x[i] - ((names[i].length/5) * 29.5))
-      .attr("y", text_y[i] + 4)
-      .text(names[i])
-      .attr("class", "draw-text-overall");
-  }
+      d3.select("svg").append("text")
+        .attr("class", "overall-text")
+        .attr("x", text_x[i] - ((map[names[i]].length/5) * 30))
+        .attr("y", text_y[i] + 4)
+        .text(map[names[i]])
+        .attr("class", "draw-text-overall");
+      }
 
   createToolTip(svg);
 }
@@ -1462,28 +1535,33 @@ function createToolTip( _svg ){
       .attr("stroke", "black")
       .attr("fill", "white")
       .attr("width", 280)
-      .attr("height", 100)
+      .attr("height", 120)
       .attr("transform", "translate(0,0)");
+
+  tooltip.append("text")
+      .attr("id", "tip-date")
+      .text("日期")
+      .attr("transform", "translate(15,25)");
 
   tooltip.append("text")
       .attr("id", "tip-spot-name")
       .text("景點名稱")
-      .attr("transform", "translate(15,25)");
+      .attr("transform", "translate(15,45)");
 
   tooltip.append("text")
       .attr("id", "tip-tour-number")
       .text("遊客人數")
-      .attr("transform", "translate(15,45)");
+      .attr("transform", "translate(15,65)");
 
   tooltip.append("text")
       .attr("id", "tip-region")
       .text("縣市")
-      .attr("transform", "translate(15,65)");
+      .attr("transform", "translate(15,85)");
 
   tooltip.append("text")
       .attr("id", "tip-class")
       .text("類型")
-      .attr("transform", "translate(15,85)");
+      .attr("transform", "translate(15,105)");
 }
 
 function createToolTip_Class( _svg ){
@@ -1498,28 +1576,33 @@ function createToolTip_Class( _svg ){
       .attr("stroke", "black")
       .attr("fill", "white")
       .attr("width", 280)
-      .attr("height", 100)
+      .attr("height", 120)
       .attr("transform", "translate(0,0)");
+
+  tooltip.append("text")
+      .attr("id", "tip-date")
+      .text("日期")
+      .attr("transform", "translate(15,25)");
 
   tooltip.append("text")
       .attr("id", "tip-spot-name")
       .text("景點名稱")
-      .attr("transform", "translate(15,25)");
+      .attr("transform", "translate(15,45)");
 
   tooltip.append("text")
       .attr("id", "tip-tour-number")
       .text("遊客人數")
-      .attr("transform", "translate(15,45)");
+      .attr("transform", "translate(15,65)");
 
   tooltip.append("text")
       .attr("id", "tip-region")
       .text("縣市")
-      .attr("transform", "translate(15,65)");
+      .attr("transform", "translate(15,85)");
 
   tooltip.append("text")
       .attr("id", "tip-class")
       .text("類型")
-      .attr("transform", "translate(15,85)");
+      .attr("transform", "translate(15,105)");
 }
 
 function makeMouseOutFn(elem){
@@ -1573,3 +1656,5 @@ function modNum(str){
 
   return finalStr; 
 }
+
+

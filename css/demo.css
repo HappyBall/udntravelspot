@@ -1,5 +1,6 @@
 body{
 	font-family: defFont;
+  margin-bottom: 20px;
 }
 
 .container{
@@ -102,11 +103,12 @@ div.editors{
 #slider{
 	margin-top: 5px;
   z-index: 0;
+  display: inline;
 }
 
 #slider-scale{
   width: 100%;
-  height: 31px;
+  height: 40px;
   background: url("../img/scale.jpg");
   right: 10px;
   margin-top: 20px;
@@ -220,7 +222,7 @@ div.editors{
   background: #f2f2f2;
   opacity: 0.9;
   width: 440px;
-  height: 550px;
+  height: 560px;
   font-size: 17px;
   color: #666666;
   border-color: #262626;
@@ -233,7 +235,7 @@ div.editors{
   width: 440px;
   height: 30px;
   margin-left: 37px;
-  margin-top: 10px;
+  margin-top: 15px;
   font-family: defFont;
 }
 
@@ -255,6 +257,7 @@ input{
 
 #pop-top{
   display: table;
+  margin-top: 10px
 }
 
 #dividing-line{
@@ -279,6 +282,16 @@ input{
   height: 21px;
 }
 
+#icons-region{
+  display: none;
+}
+
+#region-img{
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: -30px;
+}
+
 #chart-container{
 	width: 100%;
   max-width: 1200px;
@@ -299,6 +312,11 @@ input{
   font-family: defFont;
 }
 
+.draw-text-biggest{
+  font-size: 17px;
+  font-family: defFont;
+}
+
 .draw-text-region{
   font-size: 30px;
   font-family: defFont;
@@ -308,6 +326,12 @@ input{
   float: right;
   font-family: defFont;
   font-size: 17px;
+}
+
+#tip-date{
+  font-size: 14px;
+  color: #666666;
+  font-family: defFont;
 }
 
 #tip-spot-name{
