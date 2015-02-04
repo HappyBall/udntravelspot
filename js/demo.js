@@ -101,10 +101,10 @@ d3.json(dataUrl, function(error, root) {
         if (r.length == 6){
           regs[0] = r.substr(0,3);
           regs[1] = r.substr(3,3);
-          $("#tip-region").text("縣市：" + regs[0] + "、" + regs[1]);
+          $("#tip-region").text("縣市：" + modRegionName(regs[0]) + "、" + modRegionName(regs[1]));
         }
         else{
-          $("#tip-region").text("縣市：" + r);
+          $("#tip-region").text("縣市：" + modRegionName(r));
         }
         // $("#risetip-sum-bo").text("地區：" +  d["region"]);
         tip_x = d.x + 20;
@@ -339,10 +339,10 @@ function drawOverall(){
         if (r.length == 6){
           regs[0] = r.substr(0,3);
           regs[1] = r.substr(3,3);
-          $("#tip-region").text("縣市：" + regs[0] + "、" + regs[1]);
+          $("#tip-region").text("縣市：" + modRegionName(regs[0]) + "、" + modRegionName(regs[1]));
         }
         else{
-          $("#tip-region").text("縣市：" + r);
+          $("#tip-region").text("縣市：" + modRegionName(r));
         }
         // $("#risetip-sum-bo").text("地區：" +  d["region"]);
         tip_x = d.x + 20;
@@ -500,10 +500,10 @@ function drawByClass(){
             if (r.length == 6){
               regs[0] = r.substr(0,3);
               regs[1] = r.substr(3,3);
-              $("#tip-region").text("縣市：" + regs[0] + "、" + regs[1]);
+              $("#tip-region").text("縣市：" + modRegionName(regs[0]) + "、" + modRegionName(regs[1]));
             }
             else{
-              $("#tip-region").text("縣市：" + r);
+              $("#tip-region").text("縣市：" + modRegionName(r));
             }
             // $("#risetip-sum-bo").text("地區：" +  d["region"]);
             tip_x = allX[spot] + 20;
@@ -797,7 +797,7 @@ function drawByRegion(){
             if(regions_storage[d['Scenic_Spots']].length != 1){
               var r1 = regions_storage[d['Scenic_Spots']][0];
               var r2 = regions_storage[d['Scenic_Spots']][1];
-              $("#tip-region").text("縣市：" + r1 + "、" + r2);
+              $("#tip-region").text("縣市：" + modRegionName(r1) + "、" + modRegionName(r2));
               if((spot + '_' + r) in allX){
                 console.log(spot);
                 tip_x = allX[(spot + '_' + r)] + 20;
@@ -809,7 +809,7 @@ function drawByRegion(){
               }
             }
             else{
-              $("#tip-region").text("縣市：" + r);
+              $("#tip-region").text("縣市：" + modRegionName(r));
               tip_x = allX[spot] + 20;
               tip_y = allY[spot] + 10;
             }
@@ -908,7 +908,7 @@ function drawByRegion(){
         d3.select("svg").append("text")
           .attr("x", firstX_region[i] - firstR_region[i])
           .attr("y", getRegionYY(i) - firstR_region[i] - 20)
-          .text(biggestRegions[i])
+          .text(modRegionName(biggestRegions[i]))
           .attr("class", "draw-text-region");
 
         d3.select("svg").append("text")
@@ -1042,10 +1042,10 @@ function drawBySearch(){
         if (r.length == 6){
           regs[0] = r.substr(0,3);
           regs[1] = r.substr(3,3);
-          $("#tip-region").text("縣市：" + regs[0] + "、" + regs[1]);
+          $("#tip-region").text("縣市：" + modRegionName(regs[0]) + "、" + modRegionName(regs[1]));
         }
         else{
-          $("#tip-region").text("縣市：" + r);
+          $("#tip-region").text("縣市：" + modRegionName(r));
         }
         // $("#risetip-sum-bo").text("地區：" +  d["region"]);
         tip_x = d.x + 20;
