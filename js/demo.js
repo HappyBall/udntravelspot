@@ -473,8 +473,6 @@ function drawByClass(){
     // console.log(counter_names);
   }
 
-  console.log(biggestNames);
-
   // console.log (biggestClasses);
   // console.log(classNum);
 
@@ -550,7 +548,7 @@ function drawByClass(){
           counter[x]++;
                 if (counter[x] != 1) {
                   if(x == 0){
-                    cx_classify[x] = 2* firstR[x] + (counter[x] - 1) * ( w / (classNum+3));
+                    cx_classify[x] = firstR[x] + ((counter[x] - 1) * ( (w - 80) / (classNum+3))) + 50;
                   }
                   else
                     cx_classify[x] = cx_classify[x] + r_classify[x] + r_now/para;
