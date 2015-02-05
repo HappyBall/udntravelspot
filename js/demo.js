@@ -116,6 +116,13 @@ d3.json(dataUrl, function(error, root) {
           })
           .style("display", "inline")
           .duration(500);
+
+        ga("send", {
+          "hitType": "event",
+          "eventCategory": "chart",
+          "eventAction": "hover",
+          "eventLabel": "mainpage"
+        });
       })
       .on("mouseout", function(d){
         d3.select(this).select("circle").style("stroke-width", "1px");
@@ -196,6 +203,13 @@ $("#slider").on('slide', function(){
   $( "#date-display" ).text( now_yr + " 年 " + now_mn + " 月" );
   if(filter_now == 1)drawOverall();
   else drawBySearch();
+
+  ga("send", {
+          "hitType": "event",
+          "eventCategory": "slider",
+          "eventAction": "slide",
+          "eventLabel": "main&search"
+        });
   
 });
 
@@ -218,6 +232,12 @@ $("#overall-btn").click(function(){
   }
   document.getElementById("overall-btn").style.color = "#000000";
   document.getElementById("overall-btn").style.background = "#b6f2d0";
+  ga("send", {
+          "hitType": "event",
+          "eventCategory": "button",
+          "eventAction": "click",
+          "eventLabel": "overall-btn"
+        });
 });
 
 $("#class-btn").click(function(){
@@ -241,6 +261,12 @@ $("#class-btn").click(function(){
   }
   document.getElementById("class-btn").style.color = "#000000";
   document.getElementById("class-btn").style.background = "#b6f2d0";
+  ga("send", {
+          "hitType": "event",
+          "eventCategory": "button",
+          "eventAction": "click",
+          "eventLabel": "class-btn"
+        });
 });
 
 $("#region-btn").click(function(){
@@ -262,6 +288,12 @@ $("#region-btn").click(function(){
   }
   document.getElementById("region-btn").style.color = "#000000";
   document.getElementById("region-btn").style.background = "#b6f2d0";
+  ga("send", {
+          "hitType": "event",
+          "eventCategory": "button",
+          "eventAction": "click",
+          "eventLabel": "region-btn"
+        });
 });
 
 $("#search-btn").click(function(){
@@ -292,6 +324,12 @@ $("#search-btn").click(function(){
     document.getElementById("search-triangle").src = "../img/icon_triangle_up.png";
   else
     document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
+  ga("send", {
+          "hitType": "event",
+          "eventCategory": "button",
+          "eventAction": "click",
+          "eventLabel": "search-btn"
+        });
 
 });
 
@@ -353,6 +391,13 @@ function drawOverall(){
           })
           .style("display", "inline")
           .duration(500);
+
+        ga("send", {
+          "hitType": "event",
+          "eventCategory": "chart",
+          "eventAction": "hover",
+          "eventLabel": "main"
+        });
       })
       .on("mouseout", function(d){
         d3.select(this).select("circle").style("stroke-width", "1px");
@@ -517,6 +562,14 @@ function drawByClass(){
               })
               .style("display", "inline")
               .duration(500);
+
+            ga("send", {
+              "hitType": "event",
+              "eventCategory": "chart",
+              "eventAction": "hover",
+              "eventLabel": "class"
+              });
+              
             })
             .on("mouseout", function(d){
               d3.select(this).select("circle").style("stroke-width", "1px");
@@ -822,6 +875,13 @@ function drawByRegion(){
               })
               .style("display", "inline")
               .duration(500);
+            ga("send", {
+              "hitType": "event",
+              "eventCategory": "chart",
+              "eventAction": "hover",
+              "eventLabel": "region"
+            });
+
           })
           .on("mouseout", function(d){
             d3.select(this).select("circle").style("stroke-width", "1px");
@@ -1056,6 +1116,13 @@ function drawBySearch(){
           })
           .style("display", "inline")
           .duration(500);
+        ga("send", {
+          "hitType": "event",
+          "eventCategory": "chart",
+          "eventAction": "hover",
+          "eventLabel": "search"
+        });
+
       })
       .on("mouseout", function(d){
         d3.select(this).select("circle").style("stroke-width", "1px");
