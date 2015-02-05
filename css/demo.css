@@ -315,6 +315,7 @@ input{
 .draw-text-biggest{
   font-size: 17px;
   font-family: defFont;
+  fill:#808080;
 }
 
 .draw-text-region{
@@ -330,31 +331,31 @@ input{
 
 #tip-date{
   font-size: 14px;
-  color: #666666;
+  fill: #808080;
   font-family: defFont;
 }
 
 #tip-spot-name{
   font-size: 17px;
-  color: #000000;
+  fill: #000000;
   font-family: defFont;
 }
 
 #tip-tour-number{
   font-size: 17px;
-  color: #000000;
+  fill: #000000;
   font-family: defFont;
 }
 
 #tip-region{
   font-size: 14px;
-  color: #666666;
+  fill: #808080;
   font-family: defFont;
 }
 
 #tip-class{
   font-size: 14px;
-  color: #666666;
+  fill: #808080;
   font-family: defFont;
 }
 
