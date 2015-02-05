@@ -214,6 +214,8 @@ $("#slider").on('slide', function(){
 });
 
 $("#overall-btn").click(function(){
+  
+  $("#spring-charts").css("display", "none");
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "inline");
@@ -221,13 +223,22 @@ $("#overall-btn").click(function(){
 
   if (filter_now == 1);
   else{
-    document.getElementById(getBtnId(filter_now)).style.color = "#808080";
-    document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+
+    if(filter_now == 5){
+      $("#date-display").css("display", "block");
+      $("#chart-container").css("display", "block");
+      document.getElementById(getBtnId(filter_now)).style.color = "#f47373";
+      document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+    }
+    else{
+      document.getElementById(getBtnId(filter_now)).style.color = "#808080";
+      document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+    }
     filter_now = 1;
     drawOverall();
     $("#slider").css("display", "inline");
     // d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
-    d3.select("#slider-scale").transition().style("opacity", 1);
+    $("#slider-scale").css("display", "block");
     d3.select("#icons").transition().style("display", "inline");
   }
   document.getElementById("overall-btn").style.color = "#000000";
@@ -241,20 +252,31 @@ $("#overall-btn").click(function(){
 });
 
 $("#class-btn").click(function(){
+
+  $("#spring-charts").css("display", "none");
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
   $("#icons-region").css("display", "none");
   if (filter_now == 2);
   else{
-    document.getElementById(getBtnId(filter_now)).style.color = "#808080";
-    document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+
+    if(filter_now == 5){
+      $("#date-display").css("display", "block");
+      $("#chart-container").css("display", "block");
+      document.getElementById(getBtnId(filter_now)).style.color = "#f47373";
+      document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+    }
+    else{
+      document.getElementById(getBtnId(filter_now)).style.color = "#808080";
+      document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+    }
     filter_now = 2;
     d3.select("#icons").transition().style("display", "none");
     // d3.select("svg").transition().style("opacity", 0).remove();
     $("#slider").css("display", "none");
     // d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
-    d3.select("#slider-scale").transition().style("opacity", 0);
+    $("#slider-scale").css("display", "none");
     // console.log(_root);
     drawByClass();
     // d3.select("svg").transition().style("opacity", 0).remove();
@@ -270,19 +292,29 @@ $("#class-btn").click(function(){
 });
 
 $("#region-btn").click(function(){
+
+  $("#spring-charts").css("display", "none");
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
-  $("#icons-region").css("display", "inline");
+  $("#icons-region").css("display", "block");
   if (filter_now == 3);
   else{
-    document.getElementById(getBtnId(filter_now)).style.color = "#808080";
-    document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+    if(filter_now == 5){
+      $("#date-display").css("display", "block");
+      $("#chart-container").css("display", "block");
+      document.getElementById(getBtnId(filter_now)).style.color = "#f47373";
+      document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+    }
+    else{
+      document.getElementById(getBtnId(filter_now)).style.color = "#808080";
+      document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+    }
     filter_now = 3;
     d3.select("#icons").transition().style("display", "none");
     $("#slider").css("display", "none");
     // d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
-    d3.select("#slider-scale").transition().style("opacity", 0);
+    $("#slider-scale").css("display", "none");
     drawByRegion();
     // d3.select("svg").transition().style("opacity", 0).remove();
   }
@@ -297,6 +329,8 @@ $("#region-btn").click(function(){
 });
 
 $("#search-btn").click(function(){
+
+  $("#spring-charts").css("display", "none");
   d3.select("#remark").transition().style("display", "inline");
   $("#icons-region").css("display", "none");
   if (filter_now == 4){
@@ -305,13 +339,22 @@ $("#search-btn").click(function(){
     else document.getElementById("popup").style.visibility = "hidden";
   }
   else{
-    document.getElementById(getBtnId(filter_now)).style.color = "#808080";
-    document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+
+    if(filter_now == 5){
+      $("#date-display").css("display", "block");
+      $("#chart-container").css("display", "block");
+      document.getElementById(getBtnId(filter_now)).style.color = "#f47373";
+      document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+    }
+    else{
+      document.getElementById(getBtnId(filter_now)).style.color = "#808080";
+      document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+    }
     filter_now = 4;
     drawBySearch();
     $("#slider").css("display", "inline");
     // d3.select("#slider").transition().style("opacity", 1).style("pointer-events", "auto");
-    d3.select("#slider-scale").transition().style("opacity", 1);
+    $("#slider-scale").css("display", "block");
     d3.select("#icons").transition().style("display", "inline");
     // d3.select("#icons").transition().style("opacity", 0);
     // d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
@@ -330,6 +373,28 @@ $("#search-btn").click(function(){
           "eventAction": "click",
           "eventLabel": "search-btn"
         });
+
+});
+
+$("#spring-btn").click(function(){
+  document.getElementById("popup").style.visibility = "hidden";
+  document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
+  if(filter_now == 5);
+  else{
+    document.getElementById(getBtnId(filter_now)).style.color = "#808080";
+    document.getElementById(getBtnId(filter_now)).style.background = "#FFFFFF";
+    filter_now = 5;
+    $("#date-display").css("display", "none");
+    $("#icons-region").css("display", "none");
+    $("#slider").css("display", "none");
+    $("#slider-scale").css("display", "none");
+    $("#chart-container").css("display", "none");
+    $("#remark").css("display", "none");
+    $("#spring-charts").css("display", "block");
+  }
+
+  document.getElementById("spring-btn").style.color = "#FFFFFF";
+  document.getElementById("spring-btn").style.background = "#f47373";
 
 });
 
@@ -1577,6 +1642,8 @@ function getBtnId(i){
       return "region-btn";
     case 4:
       return "search-btn";
+    case 5:
+      return "spring-btn";
   }
 }
 

@@ -1,0 +1,64 @@
+<manifest alg="2" build="10" opt="true" iceEnabled="true" iceMarkupVersion="2" exportTarget="other" resolutions="1x" timestamp="1423120645766">
+  <folder name="css">
+    <file name="site_global.css" crc="365011649"/>
+    <file name="index.css" crc="4091536363" ref="index"/>
+  </folder>
+  <folder name="assets">
+    <folder name="slideshow">
+      <folder name="edge_includes">
+        <file name="edge.3.0.0.min.js" crc="4179919955" mt="1423120554000"/>
+        <file name="jquery-2.0.3.min.js" crc="4065232848" mt="1423120554000"/>
+      </folder>
+      <folder name="images">
+        <file name="aa1.jpg" crc="112710540" mt="1423120554000"/>
+        <file name="aa2.jpg" crc="4286091418" mt="1423120554000"/>
+        <file name="aa3.jpg" crc="418523706" mt="1423120554000"/>
+        <file name="aa4.jpg" crc="522404040" mt="1423120554000"/>
+        <file name="aa5.jpg" crc="3765646313" mt="1423120554000"/>
+        <file name="aa6.jpg" crc="257247767" mt="1423120554000"/>
+        <file name="icon.png" crc="3760378029" mt="1423120554000"/>
+        <file name="Poster.png" crc="3760378029" mt="1423120554000"/>
+      </folder>
+      <file name="slideshow_edge.js" crc="72283393" mt="1423120554000"/>
+      <file name="slideshow_edgeActions.js" crc="4273858668" mt="1423120554000"/>
+      <file name="slideshow_edgePreload.js" crc="64125479" mt="1423120554000"/>
+      <file name="slideshow.html" crc="4185664757" mt="1423120554000"/>
+    </folder>
+    <folder name="vacationpeople">
+      <folder name="edge_includes">
+        <file name="edge.3.0.0.min.js" crc="4179919955" mt="1423042793000"/>
+        <file name="jquery-2.0.3.min.js" crc="4065232848" mt="1423042793000"/>
+      </folder>
+      <folder name="images">
+        <file name="ff_0204_03.jpg" crc="3829338898" mt="1423042793000"/>
+        <file name="ff_0204_07.jpg" crc="4117391479" mt="1423042793000"/>
+        <file name="ff_0204_10.jpg" crc="3859874684" mt="1423042793000"/>
+        <file name="ff_0204_13.jpg" crc="3767538430" mt="1423042793000"/>
+        <file name="ff_0204_16.jpg" crc="4224288098" mt="1423042793000"/>
+        <file name="ff_0204_19.jpg" crc="326669343" mt="1423042793000"/>
+        <file name="ff_0204_22.jpg" crc="4246705910" mt="1423042793000"/>
+        <file name="ff_0204_25.jpg" crc="362390733" mt="1423042793000"/>
+        <file name="ff_0204_28.jpg" crc="4043361989" mt="1423042793000"/>
+        <file name="ff_0204_31.jpg" crc="3923782702" mt="1423042793000"/>
+        <file name="ff_0204_34.png" crc="193707293" mt="1423042793000"/>
+        <file name="icon.png" crc="4083604241" mt="1423042793000"/>
+        <file name="Poster.png" crc="4083604241" mt="1423042793000"/>
+      </folder>
+      <file name="vacationpeople_edge.js" crc="3906760576" mt="1423042793000"/>
+      <file name="vacationpeople_edgeActions.js" crc="228063550" mt="1423042793000"/>
+      <file name="vacationpeople_edgePreload.js" crc="4279865653" mt="1423042793000"/>
+      <file name="vacationpeople.html" crc="201780361" mt="1423042793000"/>
+    </folder>
+  </folder>
+  <folder name="scripts">
+    <file name="jquery-1.8.3.min.js" crc="4164521501" ref="index"/>
+    <file name="museutils.js" crc="3777594392" ref="index"/>
+  </folder>
+  <folder name="images">
+    <file name="u76-4.png" crc="465775426" ref="index"/>
+    <file name="u87-4.png" crc="3839555554" ref="index"/>
+    <file name="u112-4.png" crc="174121097" ref="index"/>
+    <file name="u118-4.png" crc="373331960" ref="index"/>
+  </folder>
+  <file name="index.html" crc="258801849" mt="1423120637909" redirect="true"/>
+</manifest>
