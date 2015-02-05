@@ -116,12 +116,12 @@ div.editors{
 
 @font-face {
   font-family: defFont;
-  src: url(ARHeiB5Medium.otf);
+  src: url(msjh.ttf);
 }
 
 @font-face{
   font-family: defFontB;
-  src: url(ARHeiB5Bold.otf);
+  src: url(msjhbd.ttf);
 }
 
 #date-display{
