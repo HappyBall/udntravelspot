@@ -46,7 +46,7 @@ var firstCirclePadding = 130;
 var firstR = [];
 var firstR_region = [];
 
-var x_padding = 0;
+var x_padding = 100;
 var search_anything = 0;
 
 var tip_x, tip_y;
@@ -149,7 +149,7 @@ d3.json(dataUrl, function(error, root) {
     for(var i = 0; i < names.length; i++){
       d3.select("svg").append("text")
         .attr("class", "overall-text")
-        .attr("x", text_x[i] - ((map[names[i]].length/5) * 30))
+        .attr("x", text_x[i] - ((map[names[i]].length/5) * 30) + x_padding)
         .attr("y", text_y[i] + 4)
         .text(map[names[i]])
         .attr("class", "draw-text-overall");
@@ -401,6 +401,78 @@ $("#spring-btn").click(function(){
 function drawOverall(){
       d3.select("svg").remove();
 
+      var dataforTable = _root.slice();
+      dataforTable.sort(function(a,b){return b[now_yr][now_mn - 1] - a[now_yr][now_mn - 1] });      
+      var ranklist = [];
+      for(var i = 0; i < 3; i++){
+        ranklist[i] = {};
+        ranklist[i]['spotName'] = dataforTable[i]['Scenic_Spots'];
+        ranklist[i]['now_tourNum'] = dataforTable[i][now_yr][now_mn - 1];
+        if(now_mn - 2 < 0){
+          if(now_yr - 1 < 2005){
+            ranklist[i]['lastmn_tourNum'] = -1;
+          }
+          else{
+            ranklist[i]['lastmn_tourNum'] = dataforTable[i][now_yr - 1][11];
+          }
+        }
+        else{
+          ranklist[i]['lastmn_tourNum'] = dataforTable[i][now_yr][now_mn - 2]
+        }
+        if(now_yr - 1 < 2005){
+          ranklist[i]['lastyr_tourNum'] = -1;
+        }
+        else{
+          ranklist[i]['lastyr_tourNum'] = dataforTable[i][now_yr - 1][now_mn - 1];
+        }
+      }
+
+      for (var i = 0; i < 3; i++){
+        var id_idx = getRankId(i);
+        var iconUp = '↑';
+        var iconDown = '↓';
+        var travelspot = ranklist[i]['spotName'];
+        var nowNum = ranklist[i]['now_tourNum'];
+        var lastyrNum = ranklist[i]['lastyr_tourNum'];
+        var lastmnNum = ranklist[i]['lastmn_tourNum'];
+
+        $('#' + id_idx + '-2-1').text(map[travelspot]);
+        $('#' + id_idx + '-2-2').text(modNum(nowNum.toString()) + "位");
+        if(lastmnNum == -1){
+          $('#' + id_idx + '-3-1').text('    ' + "  -----  ");
+          $('#' + id_idx + '-3-1').attr("class", "table-details");
+        }
+        else{
+          if(nowNum >= lastmnNum){
+            var frac = ((nowNum - lastmnNum)/lastmnNum) * 100;
+            $('#' + id_idx + '-3-1').text(iconUp + ' ' + formatFloat(frac) + '%');
+            $('#' + id_idx + '-3-1').attr("class", "increasing");
+          }
+          else{
+            var frac = ((lastmnNum - nowNum)/lastmnNum) * 100;
+            $('#' + id_idx + '-3-1').text(iconDown + ' ' + formatFloat(frac) + '%');
+            $('#' + id_idx + '-3-1').attr("class", "decreasing");
+          }
+        }
+        if(lastyrNum == -1){
+          $('#' + id_idx + '-3-2').text('    ' + "  -----  ");
+          $('#' + id_idx + '-3-2').attr("class", "table-details");
+        }
+        else{ 
+          if(nowNum >= lastyrNum){
+            var frac = ((nowNum - lastyrNum)/lastyrNum)*100;
+            $('#' + id_idx + '-3-2').text(iconUp + ' ' + formatFloat(frac) + '%');
+            $('#' + id_idx + '-3-2').attr("class", "increasing");
+          }
+          else{
+            var frac = ((lastyrNum - nowNum)/lastyrNum)*100;
+            $('#' + id_idx + '-3-2').text(iconDown + ' ' + formatFloat(frac) + '%');
+            $('#' + id_idx + '-3-2').attr("class", "decreasing");
+          }
+        }
+
+      }
+
       var names = [];
       var text_x = [];
       var text_y = [];
@@ -488,7 +560,7 @@ function drawOverall(){
       for(var i = 0; i < names.length; i++){
       d3.select("svg").append("text")
         .attr("class", "overall-text")
-        .attr("x", text_x[i] - ((map[names[i]].length/5) * 30))
+        .attr("x", text_x[i] - ((map[names[i]].length/5) * 30) + x_padding)
         .attr("y", text_y[i] + 4)
         .text(map[names[i]])
         .attr("class", "draw-text-overall");
@@ -678,7 +750,7 @@ function drawByClass(){
                 }
                 r_classify[x] = r_now/para;
                 allX[d['Scenic_Spots']] = cx_classify[x];
-                return cx_classify[x] + x_padding;
+                return cx_classify[x] ;
           
         }
       },
@@ -991,7 +1063,7 @@ function drawByRegion(){
                   allX[d['Scenic_Spots']] = cx_region[x];
                 }
 
-                return cx_region[x] + x_padding;
+                return cx_region[x] ;
           
           }
         },
@@ -1214,7 +1286,7 @@ function drawBySearch(){
   for(var i = 0; i < names.length; i++){
       d3.select("svg").append("text")
         .attr("class", "overall-text")
-        .attr("x", text_x[i] - ((map[names[i]].length/5) * 30))
+        .attr("x", text_x[i] - ((map[names[i]].length/5) * 30) + x_padding)
         .attr("y", text_y[i] + 4)
         .text(map[names[i]])
         .attr("class", "draw-text-overall");
@@ -1659,7 +1731,7 @@ function createToolTip( _svg ){
   tooltip= _svg.append("g")
       .attr("class","tool_tip")
       .style("display", "none")
-      .attr("transform", "translate(150,100)");
+      .attr("transform", "translate(300,100)");
 
   tooltip.append("rect")
       .attr("id", "tip-frame")
@@ -1789,4 +1861,18 @@ function modNum(str){
   return finalStr; 
 }
 
+function getRankId(i){
+  switch(i){
+    case 0:
+      return "rank1";
+    case 1:
+      return "rank2";
+    case 2:
+      return "rank3";
+  }
+}
 
+function formatFloat(num){
+  var size = Math.pow(10, 2);
+  return Math.round(num*size) / size;
+}

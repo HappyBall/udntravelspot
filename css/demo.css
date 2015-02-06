@@ -319,9 +319,164 @@ input{
   max-width: 1200px;
 }
 
-#icons{
+#rank-table{
+  display: table;
+  border: solid;
+  border-width: 1px;
+  border-color: #999999;
+  font-size: 17px;
   position: absolute;
   margin-top: 20px;
+  padding-bottom: 10px;
+}
+
+.table-border{
+  width: 1px;
+  height: 45px;
+  background: #999999;
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+#items{
+  color: #666666;
+}
+
+#items-1{
+  float: left;
+  font-family: defFont;
+  width: 40px;
+  height: 45px;
+  line-height: 38px;
+  margin-left: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#items-2{
+  float: left;
+  font-family: defFont;
+  width: 120px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#items-3{
+  float: left;
+  font-family: defFont;
+  width: 130px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank1-1{
+  float: left;
+  font-family: defFont;
+  width: 40px;
+  height: 45px;
+  line-height: 38px;
+  margin-left: 10px;
+  margin-top: 10px;
+  text-align: center;
+
+}
+
+#rank1-2{
+  float: left;
+  font-family: defFont;
+  width: 120px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank1-3{
+  float: left;
+  font-family: defFont;
+  width: 130px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank2-1{
+  float: left;
+  font-family: defFont;
+  width: 40px;
+  height: 45px;
+  line-height: 38px;
+  margin-left: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#rank2-2{
+  float: left;
+  font-family: defFont;
+  width: 120px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank2-3{
+  float: left;
+  font-family: defFont;
+  width: 130px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank3-1{
+  float: left;
+  font-family: defFont;
+  width: 40px;
+  height: 45px;
+  line-height: 38px;
+  margin-left: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#rank3-2{
+  float: left;
+  font-family: defFont;
+  width: 120px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank3-3{
+  float: left;
+  font-family: defFont;
+  width: 130px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.increasing{
+  color: #5a9389;
+  height: 22px;
+}
+
+.decreasing{
+  color: #c05f5f;
+  height: 22px;
+}
+
+.table-details{
+  height: 22px;
+}
+
+#icons_img{
+  position: absolute;
+  margin-top: 300px;
 }
 
 .draw-text-class{
@@ -394,7 +549,7 @@ input{
 #spring-charts{
   display: none;
   width: 1200px;
-  height: 2950px;
+  height: 3000px;
   margin-top: 20px;
 }
 
