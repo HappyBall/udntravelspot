@@ -1,3 +1,9 @@
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+ // some code..
+ window.location.href = "http://m.udn.com/issue/countypolicy";
+
+}
+
 dataPath = 'data/';
 dataFile = 'travel_spot_mod_final.json';
 dataUrl = dataPath + dataFile;
@@ -220,6 +226,7 @@ $("#overall-btn").click(function(){
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "inline");
   $("#icons-region").css("display", "none");
+  $("#text-content").css("display", "table");
 
   if (filter_now == 1);
   else{
@@ -258,6 +265,7 @@ $("#class-btn").click(function(){
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
   $("#icons-region").css("display", "none");
+  $("#text-content").css("display", "none");
   if (filter_now == 2);
   else{
 
@@ -298,6 +306,7 @@ $("#region-btn").click(function(){
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
   $("#icons-region").css("display", "block");
+  $("#text-content").css("display", "none");
   if (filter_now == 3);
   else{
     if(filter_now == 5){
@@ -333,6 +342,7 @@ $("#search-btn").click(function(){
   $("#spring-charts").css("display", "none");
   d3.select("#remark").transition().style("display", "inline");
   $("#icons-region").css("display", "none");
+  $("#text-content").css("display", "none");
   if (filter_now == 4){
     if (document.getElementById("popup").style.visibility == "hidden")
       document.getElementById("popup").style.visibility = "visible";
@@ -379,6 +389,7 @@ $("#search-btn").click(function(){
 $("#spring-btn").click(function(){
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
+  $("#text-content").css("display", "none");
   if(filter_now == 5);
   else{
     document.getElementById(getBtnId(filter_now)).style.color = "#808080";
