@@ -439,7 +439,7 @@ function drawOverall(){
         $('#' + id_idx + '-2-1').text(map[travelspot]);
         $('#' + id_idx + '-2-2').text(modNum(nowNum.toString()) + "位");
         if(lastmnNum == -1){
-          $('#' + id_idx + '-3-1').text('    ' + "  -----  ");
+          $('#' + id_idx + '-3-1').text('\xa0\xa0' + "------");
           $('#' + id_idx + '-3-1').attr("class", "table-details");
         }
         else{
@@ -455,7 +455,7 @@ function drawOverall(){
           }
         }
         if(lastyrNum == -1){
-          $('#' + id_idx + '-3-2').text('    ' + "  -----  ");
+          $('#' + id_idx + '-3-2').text('\xa0\xa0' + "------");
           $('#' + id_idx + '-3-2').attr("class", "table-details");
         }
         else{ 
@@ -1164,6 +1164,7 @@ function drawBySearch(){
   var text_x = [];
   var text_y = [];
   var count_text = 0;
+  var dataforTable = [];
 
   for (var i = 0; i < 10; i ++){
     class_checked_list[i] = 0;
@@ -1207,10 +1208,23 @@ function drawBySearch(){
       .attr("class", "bubble");
 
   node = svg.selectAll(".node")
-      .data(bubble.nodes(classes_search(_root, now_yr.toString(), now_mn, class_checked_list, region_checked_list, names))
+      .data(bubble.nodes(classes_search(_root, now_yr.toString(), now_mn, class_checked_list, region_checked_list, names, dataforTable))
       .filter(function(d) { return !d.children; }));
 
-      if (search_anything == 0) return;
+      if (search_anything == 0){
+        for (var i = 0; i < 3; i++){
+          var id_idx = getRankId(i);
+          $('#' + id_idx + '-2-1').text('\xa0\xa0' + "------");
+          $('#' + id_idx + '-2-1').attr("class", "table-details");
+          $('#' + id_idx + '-2-2').text('\xa0\xa0' + "------");
+          $('#' + id_idx + '-2-2').attr("class", "table-details");
+          $('#' + id_idx + '-3-1').text('\xa0\xa0' + "------");
+          $('#' + id_idx + '-3-1').attr("class", "table-details");
+          $('#' + id_idx + '-3-2').text('\xa0\xa0' + "------");
+          $('#' + id_idx + '-3-2').attr("class", "table-details");
+        }
+        return;
+      }
 
   node.enter().append("g")
       .attr("class", "node")
@@ -1292,6 +1306,89 @@ function drawBySearch(){
         .attr("class", "draw-text-overall");
       }
 
+  dataforTable.sort(function(a,b){return b[now_yr][now_mn - 1] - a[now_yr][now_mn - 1] });      
+    var ranklist = [];
+    for(var i = 0; i < dataforTable.length; i++){
+      ranklist[i] = {};
+      ranklist[i]['spotName'] = dataforTable[i]['Scenic_Spots'];
+      ranklist[i]['now_tourNum'] = dataforTable[i][now_yr][now_mn - 1];
+      if(now_mn - 2 < 0){
+        if(now_yr - 1 < 2005){
+          ranklist[i]['lastmn_tourNum'] = -1;
+        }
+        else{
+          ranklist[i]['lastmn_tourNum'] = dataforTable[i][now_yr - 1][11];
+        }
+      }
+      else{
+        ranklist[i]['lastmn_tourNum'] = dataforTable[i][now_yr][now_mn - 2]
+      }
+      if(now_yr - 1 < 2005){
+        ranklist[i]['lastyr_tourNum'] = -1;
+      }
+      else{
+        ranklist[i]['lastyr_tourNum'] = dataforTable[i][now_yr - 1][now_mn - 1];
+      }
+    }
+
+      for (var i = 0; i < dataforTable.length; i++){
+        var id_idx = getRankId(i);
+        var iconUp = '↑';
+        var iconDown = '↓';
+        var travelspot = ranklist[i]['spotName'];
+        var nowNum = ranklist[i]['now_tourNum'];
+        var lastyrNum = ranklist[i]['lastyr_tourNum'];
+        var lastmnNum = ranklist[i]['lastmn_tourNum'];
+
+        $('#' + id_idx + '-2-1').text(map[travelspot]);
+        $('#' + id_idx + '-2-2').text(modNum(nowNum.toString()) + "位");
+        if(lastmnNum == -1){
+          $('#' + id_idx + '-3-1').text('\xa0\xa0' + "------");
+          $('#' + id_idx + '-3-1').attr("class", "table-details");
+        }
+        else{
+          if(nowNum >= lastmnNum){
+            var frac = ((nowNum - lastmnNum)/lastmnNum) * 100;
+            $('#' + id_idx + '-3-1').text(iconUp + ' ' + formatFloat(frac) + '%');
+            $('#' + id_idx + '-3-1').attr("class", "increasing");
+          }
+          else{
+            var frac = ((lastmnNum - nowNum)/lastmnNum) * 100;
+            $('#' + id_idx + '-3-1').text(iconDown + ' ' + formatFloat(frac) + '%');
+            $('#' + id_idx + '-3-1').attr("class", "decreasing");
+          }
+        }
+        if(lastyrNum == -1){
+          $('#' + id_idx + '-3-2').text('\xa0\xa0' + "------");
+          $('#' + id_idx + '-3-2').attr("class", "table-details");
+        }
+        else{ 
+          if(nowNum >= lastyrNum){
+            var frac = ((nowNum - lastyrNum)/lastyrNum)*100;
+            $('#' + id_idx + '-3-2').text(iconUp + ' ' + formatFloat(frac) + '%');
+            $('#' + id_idx + '-3-2').attr("class", "increasing");
+          }
+          else{
+            var frac = ((lastyrNum - nowNum)/lastyrNum)*100;
+            $('#' + id_idx + '-3-2').text(iconDown + ' ' + formatFloat(frac) + '%');
+            $('#' + id_idx + '-3-2').attr("class", "decreasing");
+          }
+        }
+
+      }
+
+      for(var i = 2; i >= dataforTable.length; i--){
+        var id_idx = getRankId(i);
+        $('#' + id_idx + '-2-1').text('\xa0\xa0' + "------");
+        $('#' + id_idx + '-2-1').attr("class", "table-details");
+        $('#' + id_idx + '-2-2').text('\xa0\xa0' + "------");
+        $('#' + id_idx + '-2-2').attr("class", "table-details");
+        $('#' + id_idx + '-3-1').text('\xa0\xa0' + "------");
+        $('#' + id_idx + '-3-1').attr("class", "table-details");
+        $('#' + id_idx + '-3-2').text('\xa0\xa0' + "------");
+        $('#' + id_idx + '-3-2').attr("class", "table-details");
+      }
+
   createToolTip(svg);
 }
 
@@ -1348,6 +1445,17 @@ function ToggleAllClass(){
     drawBySearch();
   }
   else{
+    for (var i = 0; i < 3; i++){
+      var id_idx = getRankId(i);
+      $('#' + id_idx + '-2-1').text('\xa0\xa0' + "------");
+      $('#' + id_idx + '-2-1').attr("class", "table-details");
+      $('#' + id_idx + '-2-2').text('\xa0\xa0' + "------");
+      $('#' + id_idx + '-2-2').attr("class", "table-details");
+      $('#' + id_idx + '-3-1').text('\xa0\xa0' + "------");
+      $('#' + id_idx + '-3-1').attr("class", "table-details");
+      $('#' + id_idx + '-3-2').text('\xa0\xa0' + "------");
+      $('#' + id_idx + '-3-2').attr("class", "table-details");
+    }
     for (var i = 0, n = classcheckboxes.length; i < n; i++) {
       if (classcheckboxes[i].checked) {
         classcheckboxes[i].checked = false;
@@ -1373,6 +1481,17 @@ function ToggleAllRegion(){
     drawBySearch();
   }
   else{
+    for (var i = 0; i < 3; i++){
+      var id_idx = getRankId(i);
+      $('#' + id_idx + '-2-1').text('\xa0\xa0' + "------");
+      $('#' + id_idx + '-2-1').attr("class", "table-details");
+      $('#' + id_idx + '-2-2').text('\xa0\xa0' + "------");
+      $('#' + id_idx + '-2-2').attr("class", "table-details");
+      $('#' + id_idx + '-3-1').text('\xa0\xa0' + "------");
+      $('#' + id_idx + '-3-1').attr("class", "table-details");
+      $('#' + id_idx + '-3-2').text('\xa0\xa0' + "------");
+      $('#' + id_idx + '-3-2').attr("class", "table-details");
+    }
     for (var i = 0, n = regioncheckboxes.length; i < n; i++) {
       if (regioncheckboxes[i].checked) {
         regioncheckboxes[i].checked = false;
@@ -1659,7 +1778,7 @@ function getClassIdx_forClass(str){
     }
   }
 
-function classes_search(data, yr_str, mn_int, array_class, array_region, array_names) {
+function classes_search(data, yr_str, mn_int, array_class, array_region, array_names, data_Table) {
   var newDataSet = []; 
   var classname ;
   var peoNum ;
@@ -1687,6 +1806,7 @@ function classes_search(data, yr_str, mn_int, array_class, array_region, array_n
     }
 
     if (array_class[x] == 1 && regionornot == 1 ){
+      data_Table.push(data[obj]);
       
       classname = getClassName(data[obj]['Class']);
 
