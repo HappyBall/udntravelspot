@@ -396,6 +396,13 @@ $("#spring-btn").click(function(){
   document.getElementById("spring-btn").style.color = "#FFFFFF";
   document.getElementById("spring-btn").style.background = "#f47373";
 
+  ga("send", {
+          "hitType": "event",
+          "eventCategory": "button",
+          "eventAction": "click",
+          "eventLabel": "spring-btn"
+        });
+
 });
 
 function drawOverall(){

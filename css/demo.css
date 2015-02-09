@@ -344,6 +344,19 @@ input{
   display: table;
 }
 
+#rank1{
+  display: table;
+}
+
+#rank2{
+  display: table;
+}
+
+#rank3{
+  display: table;
+}
+
+
 #items-1{
   float: left;
   font-family: defFont;
@@ -353,7 +366,6 @@ input{
   margin-left: 10px;
   margin-top: 10px;
   text-align: center;
-  display: table;
 }
 
 #items-2{
@@ -363,7 +375,6 @@ input{
   height: 45px;
   margin-left: 10px;
   margin-top: 10px;
-  display: table;
 }
 
 #items-3{
@@ -373,7 +384,6 @@ input{
   height: 45px;
   margin-left: 10px;
   margin-top: 10px;
-  display: table;
 }
 
 #rank1-1{
