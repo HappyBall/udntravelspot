@@ -1,6 +1,6 @@
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  // some code..
- window.location.href = "http://m.udn.com/issue/countypolicy";
+ window.location.href = "http://p.udn.com.tw/upf/newmedia/2015_data/20150209_travelspot_11/udntravelspot_mobile/index.html";
 
 }
 
@@ -113,8 +113,12 @@ d3.json(dataUrl, function(error, root) {
           $("#tip-region").text("縣市：" + modRegionName(r));
         }
         // $("#risetip-sum-bo").text("地區：" +  d["region"]);
-        tip_x = d.x + 20;
+        tip_x = d.x + 20 + x_padding;
         tip_y = d.y + 10;
+        if(tip_x + 300 > 1200)
+          tip_x = tip_x - 300;
+        if(tip_y + 140 > 700)
+          tip_y = tip_y - 140;
         d3.select(this).select("circle").style("stroke-width", "3px");
         d3.select(".tool_tip").transition()
           .attr("transform", function(){
@@ -223,7 +227,7 @@ $("#overall-btn").click(function(){
   
   $("#spring-charts").css("display", "none");
   document.getElementById("popup").style.visibility = "hidden";
-  document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
+  document.getElementById("search-triangle").src = "img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "inline");
   $("#icons-region").css("display", "none");
   $("#text-content").css("display", "table");
@@ -262,7 +266,7 @@ $("#class-btn").click(function(){
 
   $("#spring-charts").css("display", "none");
   document.getElementById("popup").style.visibility = "hidden";
-  document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
+  document.getElementById("search-triangle").src = "img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
   $("#icons-region").css("display", "none");
   $("#text-content").css("display", "none");
@@ -303,7 +307,7 @@ $("#region-btn").click(function(){
 
   $("#spring-charts").css("display", "none");
   document.getElementById("popup").style.visibility = "hidden";
-  document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
+  document.getElementById("search-triangle").src = "img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
   $("#icons-region").css("display", "block");
   $("#text-content").css("display", "none");
@@ -374,9 +378,9 @@ $("#search-btn").click(function(){
   document.getElementById("search-btn").style.color = "#000000";
   document.getElementById("search-btn").style.background = "#b6f2d0";
   if(document.getElementById("popup").style.visibility == "visible")
-    document.getElementById("search-triangle").src = "../img/icon_triangle_up.png";
+    document.getElementById("search-triangle").src = "img/icon_triangle_up.png";
   else
-    document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
+    document.getElementById("search-triangle").src = "img/icon_triangle_down.png";
   ga("send", {
           "hitType": "event",
           "eventCategory": "button",
@@ -388,7 +392,7 @@ $("#search-btn").click(function(){
 
 $("#spring-btn").click(function(){
   document.getElementById("popup").style.visibility = "hidden";
-  document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
+  document.getElementById("search-triangle").src = "img/icon_triangle_down.png";
   $("#text-content").css("display", "none");
   if(filter_now == 5);
   else{
@@ -538,8 +542,12 @@ function drawOverall(){
           $("#tip-region").text("縣市：" + modRegionName(r));
         }
         // $("#risetip-sum-bo").text("地區：" +  d["region"]);
-        tip_x = d.x + 20;
+        tip_x = d.x + 20 + x_padding;
         tip_y = d.y + 10;
+        if(tip_x + 300 > 1200)
+          tip_x = tip_x - 300;
+        if(tip_y + 140 > 700)
+          tip_y = tip_y - 140;
         d3.select(".tool_tip").transition()
           .attr("transform", function(){
             return "translate(" + tip_x + "," + tip_y + ")";
@@ -1277,8 +1285,12 @@ function drawBySearch(){
           $("#tip-region").text("縣市：" + modRegionName(r));
         }
         // $("#risetip-sum-bo").text("地區：" +  d["region"]);
-        tip_x = d.x + 20;
+        tip_x = d.x + 20 + x_padding;
         tip_y = d.y + 10;
+        if(tip_x + 300 > 1200)
+          tip_x = tip_x - 300;
+        if(tip_y + 140 > 700)
+          tip_y = tip_y - 140;
         d3.select(".tool_tip").transition()
           .attr("transform", function(){
             return "translate(" + tip_x + "," + tip_y + ")";
@@ -1956,7 +1968,7 @@ function makeMouseOutFn(elem){
             return;
         }
         document.getElementById("popup").style.visibility = "hidden";
-        document.getElementById("search-triangle").src = "../img/icon_triangle_down.png";
+        document.getElementById("search-triangle").src = "img/icon_triangle_down.png";
         // handle mouse event here!
     };
 }
@@ -2013,4 +2025,8 @@ function getRankId(i){
 function formatFloat(num){
   var size = Math.pow(10, 2);
   return Math.round(num*size) / size;
+}
+
+function src_click(){
+  $("#src-link").css("color", "#808080");
 }

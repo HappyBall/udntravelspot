@@ -87,6 +87,10 @@ body{
   margin-bottom: 5px;
 }
 
+#src-link{
+  color: #7ea0c1;
+}
+
 div.editors{
   margin-bottom: 5px;
 }
@@ -133,7 +137,7 @@ div.editors{
   font-size: 28px;
   font-family: defFont;
   border:0;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 
