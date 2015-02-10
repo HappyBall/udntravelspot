@@ -1081,8 +1081,8 @@ function drawByRegion(){
                 }
                 r_region[x] = r_now/para;
                 if (d['Scenic_Spots'] in allX){
-                  console.log(d['Scenic_Spots']);
-                  console.log(d['region']);
+                  // console.log(d['Scenic_Spots']);
+                  // console.log(d['region']);
                   allX[(d['Scenic_Spots'] + "_" + d['region'])] = cx_region[x];
                 }
                 else{

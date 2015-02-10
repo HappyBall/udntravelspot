@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" href="img/udn_title_icon.jpg">
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+	<title>熱門景點特搜 10年數據解密</title>
+	<!-- for Facebook -->
+	<meta property="og:title" content="熱門景點特搜 10年數據解密"/> <meta property="og:type" content="website"/>
+	<meta property="og:url" content="udn.com/travelspot/"/>
+	<meta property="og:image" content="img/FB.jpg"/>
+	<meta property="og:site_name" content="熱門景點特搜 10年數據解密"/> <meta property="og:description" content=""/>
+	<!-- for Google -->
+	<meta name="description" content="" />
+	<meta name="author" content="聯合新聞網" />
+	<meta name="copyright" content="聯合新聞網" />
+	<meta name="application-name" content="熱門景點特搜 10年數據解密" />
+	<!-- google analytics -->
+	<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-19660006-1']); _gaq.push(['_setDomainName', '.udn.com']); _gaq.push(['_trackPageview']);
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	</script>
+	<!-- our own google analytics -->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-58825218-3', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+	<script type="text/javascript" src="js/d3.js"></script>
+  	<script type="text/javascript" src="js/jquery-2.1.3.js"></script>
+  	<script type="text/javascript" src="js/jquery.nouislider.js"></script>
+  	<script type="text/javascript" src="js/info.js"></script>
+  	<link rel="stylesheet" type="text/css" href="css/demo.css">
+  	<link rel="stylesheet" type="text/css" href="css/jquery.nouislider.css">
+
+  	<style>
+	    text { font: 10px sans-serif; }
+	</style>
+</head>
+<body>
+	<div class = "container">
+		<div class = "category">
+			<span class="img-wrap"><a href="http://theme.udn.com/theme/cate/6772"><img src="img/udn_logo.jpg" id = "img-udn-logo"></a></span>
+			<span class="img-wrap"><a href="http://mobile.udn.com/web/ipad_4.html"><img src="img/plus_logo.jpg" id = "img-plus-logo"></a></span>
+			<!-- <span id="plus-logo">
+				<span class="yellow"><a class="yellow" href="http://mobile.udn.com/web/ipad_4.html">聯合報plus</a> </span>
+				<span class="white">資料視覺化專題</span>
+			</span> -->
+		</div>
+
+		<div class="title">
+			<span class="title-b">熱門景點特搜 10年數據解密</span>
+		</div>
+
+		<div class="editors-n-src">
+			<div class="editors">聯合報系新媒體部／楊棋宇、呂紹齊、楊翠玲 製作</div>
+			<div class="src">資料來源／
+				<a id = "src-link" onclick = "src_click()" href="http://admin.taiwan.net.tw/statistics/year.aspx?no=134">
+					觀光局觀光統計年報
+				</a>
+			</div>
+			<!-- <div class="support-ie">註：IE8（含）以下版本瀏覽器不支援此頁功能</div> -->
+		</div>
+
+		<div class = "intro">
+			下列數據視覺化圖表，可以觀看10年來每月國內各觀光遊憩點遊客人數的變化，也可以依據縣市別、景點類型或自訂搜尋來瀏覽。
+			<br>
+
+		</div>
+
+		<div id = "filters">
+			<div class = "btn-border-first"></div>
+			<div>
+				<button id = "overall-btn">數據總覽</button>
+			</div>
+			<div class = "btn-border"></div>
+			<div>
+				<button id = "class-btn">依景點類型</button>
+			</div>
+			<div class = "btn-border"></div>
+			<div>
+				<button id = "region-btn">依縣市別</button>
+			</div>
+			<div class = "btn-border"></div>
+			<div>
+				<button id = "search-btn">
+					自訂搜尋 <img src="img/icon_triangle_down.png" id = "search-triangle">
+				</button>
+			</div>
+			<div class = "btn-border"></div>
+			<div>
+				<button id = "spring-btn">春節夯點</button>
+			</div>
+			<div class = "btn-border"></div>
+			<div id="popup">
+				<div id = "notice">
+					請至少同時點選｢類型」和｢縣市」各一項。
+				</div>
+
+				<div id = "pop-top">
+				<div class = "toggleall">
+					<input type = "checkbox" name = "check-all-class" onclick = "ToggleAllClass();" checked> 全選(類型)
+				</div>
+				<div class = "search-check-class" >
+					<input type = "checkbox" name = "check-class" value = "公營遊憩區" onclick = "drawBySearch();" checked> 公營遊憩區
+				</div>
+				<div class = "search-check-class" >
+					<input type = "checkbox" name = "check-class" value = "國家公園" onclick = "drawBySearch();" checked> 國家公園 <br>
+				</div>
+				<div class = "search-check-class" >
+					<input type = "checkbox" name = "check-class" value = "民營遊憩區" onclick = "drawBySearch();" checked> 民營遊憩區
+				</div>
+				<div class = "search-check-class" >
+					<input type = "checkbox" name = "check-class" value = "國家風景區" onclick = "drawBySearch();" checked> 國家風景區 <br>
+				</div>
+				<div class = "search-check-class" >
+					<input type = "checkbox" name = "check-class" value = "海水浴場" onclick = "drawBySearch();" checked> 海水浴場
+				</div>
+				<div class = "search-check-class" >
+					<input type = "checkbox" name = "check-class" value = "森林遊樂區" onclick = "drawBySearch();" checked> 森林遊樂區 <br>
+				</div>
+				<div class = "search-check-class" >
+					<input type = "checkbox" name = "check-class" value = "古蹟、歷史建物" onclick = "drawBySearch();" checked> 古蹟、歷史建物
+				</div>
+				<div class = "search-check-class" >
+					<input type = "checkbox" name = "check-class" value = "縣級風景特定區" onclick = "drawBySearch();" checked> 縣級風景特定區 <br>
+				</div>
+				<div class = "search-check-class" >
+					<input type = "checkbox" name = "check-class" value = "寺廟" onclick = "drawBySearch();" checked> 寺廟
+				</div>
+				<div class = "search-check-class" >
+					<input type = "checkbox" name = "check-class" value = "其他" onclick = "drawBySearch();" checked> 其他 <br>
+				</div>
+				</div>
+
+				<div id = "dividing-line"><hr></div>
+
+				<div id = "pop-bot">
+				<div class = "toggleall">
+					<input type = "checkbox" name = "check-all-region" onclick = "ToggleAllRegion();" checked> 全選(縣市)
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "台北市" onclick = "drawBySearch();" checked> 臺北市
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "苗栗縣" onclick = "drawBySearch();" checked> 苗栗縣
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "基隆市" onclick = "drawBySearch();" checked> 基隆市 <br>
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "新北市" onclick = "drawBySearch();" checked> 新北市
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "彰化縣" onclick = "drawBySearch();" checked> 彰化縣
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "新竹市" onclick = "drawBySearch();" checked> 新竹市 <br>
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "桃園縣" onclick = "drawBySearch();" checked> 桃園市
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "南投縣" onclick = "drawBySearch();" checked> 南投縣
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "嘉義市" onclick = "drawBySearch();" checked> 嘉義市 <br>
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "台中市" onclick = "drawBySearch();" checked> 臺中市
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "雲林縣" onclick = "drawBySearch();" checked> 雲林縣
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "澎湖縣" onclick = "drawBySearch();" checked> 澎湖縣 <br>
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "台南市" onclick = "drawBySearch();" checked> 臺南市
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "嘉義縣" onclick = "drawBySearch();" checked> 嘉義縣
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "金門縣" onclick = "drawBySearch();" checked> 金門縣 <br>
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "高雄市" onclick = "drawBySearch();" checked> 高雄市
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "屏東縣" onclick = "drawBySearch();" checked> 屏東縣
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "連江縣" onclick = "drawBySearch();" checked> 連江縣 <br>
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "宜蘭縣" onclick = "drawBySearch();" checked> 宜蘭縣
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "花蓮縣" onclick = "drawBySearch();" checked> 花蓮縣 <br>
+				</div>
+				<div class = "search-check-region" id = "block"></div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "新竹縣" onclick = "drawBySearch();" checked> 新竹縣
+				</div>
+				<div class = "search-check-region" >
+					<input type = "checkbox" name = "check-region" value = "台東縣" onclick = "drawBySearch();" checked> 臺東縣 <br>
+				</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div id = "slider">
+		</div>
+
+		<div id = "slider-scale">
+		</div>
+
+		<div id="date-display">
+		</div>
+
+		<div id = "icons-region">
+			<img src="img/icons_region.jpg" id = "region-img">
+		</div>
+
+		<div id = "chart-container">
+			<span id = "icons">
+				<div id = "rank-table">
+					<div id = "items">
+						<div id = "items-1">排名</div>
+						<div class = "table-border"></div>
+						<div id = "items-2">
+							<div class = "table-details" id = "items-2-1">景點</div>
+							<div class = "table-details" id = "items-2-2">遊客數</div>
+						</div>
+						<div class = "table-border"></div>
+						<div id = "items-3">
+							<div class = "table-details" id = "items-3-1">與上月比</div>
+							<div class = "table-details" id = "items-3-2">與去年同月比</div>
+						</div>
+					</div>
+					<div id = "rank1">
+						<div id = "rank1-1">1</div>
+						<div class = "table-border"></div>
+						<div id = "rank1-2">
+							<div class = "table-details" id = "rank1-2-1">南鯤鯓代天府</div>
+							<div class = "table-details" id = "rank1-2-2">1,388,000位</div>
+						</div>
+						<div class = "table-border"></div>
+						<div id = "rank1-3">
+							<div class = "increasing" id = "rank1-3-1">↑ 1.78%</div>
+							<div class = "increasing" id = "rank1-3-2">↑ 127.54%</div>
+						</div>
+					</div>
+					<div id = "rank2">
+						<div id = "rank2-1">2</div>
+						<div class = "table-border"></div>
+						<div id = "rank2-2">
+							<div class = "table-details" id = "rank2-2-1">草悟道</div>
+							<div class = "table-details" id = "rank2-2-2">683,128位</div>
+						</div>
+						<div class = "table-border"></div>
+						<div id = "rank2-3">
+							<div class = "decreasing" id = "rank2-3-1">↓ 5.43%</div>
+							<div class = "decreasing" id = "rank2-3-2">↓ 18.48%</div>
+						</div>
+					</div>
+					<div id = "rank3">
+						<div id = "rank3-1">3</div>
+						<div class = "table-border"></div>
+						<div id = "rank3-2">
+							<div class = "table-details" id = "rank3-2-1">國父紀念館</div>
+							<div class = "table-details" id = "rank3-2-2">655,859位</div>
+						</div>
+						<div class = "table-border"></div>
+						<div id = "rank3-3">
+							<div class = "increasing" id = "rank3-3-1">↑ 17.2%</div>
+							<div class = "increasing" id = "rank3-3-2">↑ 6.57%</div>
+						</div>
+					</div>
+				</div>
+				<div><img src="img/icons.jpg" id = "icons_img"></div>
+			</span>
+
+			<span id = "chart">
+			</span>
+		</div>
+
+		<div id = "remark"> 
+			註：<br>
+			1.每月遊客人數達20萬，才會出現景點名稱<br>
+			2.數據取自2005年至2014年觀光局統計年報「國內主要觀光遊憩據點遊客人數統計月別統計」<br>
+			3.IE8（含）以下版本瀏覽器不支援此頁功能
+		</div>
+
+		<div id = "text-content">
+			<div id = "text-content-top">
+				<div class = "text-content-border-first"></div>
+				<div class = "text-content-block">
+					<div class = "text-content-img"><img src="img/newicon_1.jpg"></div>
+					<div class = "text-content-title">傳統廟宇</div>
+					<div class = "text-content-details">根據交通部觀光局統計年報，各月人氣最熱的遊憩景點，經常是傳統廟宇，像是台南的南鯤鯓代天府，2005年2月就創下150萬遊客的記錄；人潮最少的在2011年8月也有42萬遊客。<br><p>新港奉天宮在農曆3月大甲媽祖遶境期間香火鼎盛，在2012年4月曾湧入583萬信徒和觀光人潮；其餘如北港朝天宮、麻豆代天府、高雄佛光山、台北龍山寺…..等廟宇，每月都有相當可觀的遊客數。</div>
+				</div>
+				<div class = "text-content-border"></div>
+				<div class = "text-content-block">
+					<div class = "text-content-img"><img src="img/newicon_2.jpg"></div>
+					<div class = "text-content-title">陸客人潮</div>
+					<div class = "text-content-details">2008年7月18日開放陸客來台觀光，帶來不少觀景點遊客的成長。兩年後慈湖遊客數從13.3萬人，俱增到38.7萬人，幾乎成長3倍，去年下半年漸漸消退，至12月仍有27.6萬遊客。<br><p>其餘如國父紀念館、中正紀念堂、台北101景觀台都是陸客觀光團必到的景點，遊客人數逐月明顯增加，而日月潭、野柳的遊客數也陸續增加，在2010年每月都突破20萬大關。</div>
+				</div>
+				<div class = "text-content-border"></div>
+				<div class = "text-content-block">
+					<div class = "text-content-img"><img src="img/newicon_3.jpg"></div>
+					<div class = "text-content-title">季節因素</div>
+					<div class = "text-content-details">每年七、八月暑假，可以親近水域的景點浮出檯面，尤以舉辦海洋音樂祭的福隆海水浴場最為明顯，去(2014)年7月達到史上單月最高人數181萬。<br><p>賞花季節各景點也出現眾多人潮，每年陽明山花季車龍塞爆仰德大道，去(2014)年2月陽明公園就有102.4萬賞花人潮。士林官邸10至11月的菊花展、高雄蓮池潭秋季遊客都出現周期性爆增現象。</div>
+				</div>
+				<div class = "text-content-border"></div>
+			</div>
+			
+			<div id = "text-content-bottom">
+				<div class = "text-content-border-first"></div>
+				<div class = "text-content-block">
+					<div class = "text-content-img"><img src="img/newicon_4.jpg"></div>
+					<div class = "text-content-title">社教機構</div>
+					<div class = "text-content-details">國立的社教機構寓教於樂，是學校校外教學經常安排的景點，每月遊客人數穩定。<br><p>台北市立動物園是學校和親子同遊最常去的景點，加上一些動物明星的出現，吸引來自全國的遊客；去年貓熊寶寶圓仔出生會客，2月創下歷年最多遊客紀錄，共有57.9萬人。其他如台中科博館、故宮博物院、屏東海生館……每月的泡泡圖面積都不小。</div>
+				</div>
+				<div class = "text-content-border"></div>
+				<div class = "text-content-block">
+					<div class = "text-content-img"><img src="img/newicon_5.jpg"></div>
+					<div class = "text-content-title">主題樂園</div>
+					<div class = "text-content-details">主題樂園以九族文化村的遊客人數最為突出，每月遊玩人潮起伏變化，尤以過年期間推出櫻花祭最吸引國人，2006年2月創下66.6萬人參觀，去年2月降至39.9萬。<br><p>而六福村則以暑假較受青睞，去年8月遊客成長到最高峰28.5萬；以水上遊樂設施為號召的麗寶樂園（原月眉育樂世界）和遠雄海洋公園則在暑假時出現季節性的遊客。</div>
+				</div>
+				<div class = "text-content-border"></div>
+				<div class = "text-content-block">
+					<div class = "text-content-img"><img src="img/newicon_6.jpg"></div>
+					<div class = "text-content-title">新興景點</div>
+					<div class = "text-content-details">近年來有不少新景點冒出頭，台中草悟道表現亮眼，這兩年遊客人數居高不下，最高紀錄在2013年2月，一個月就有112.5萬人次湧入；東豐自行車道綠廊及后豐鐵馬道在去(2014)年4月有80.4萬人次造訪。<br><p>苗栗客家大院賞桐花季節人潮蜂擁，去(2014)年4月單月有39.8萬訪客；台東鹿野高台因熱汽球打響名號，在2012年7、8兩月共有79.1萬遊客蒞臨。</div>
+				</div>
+				<div class = "text-content-border"></div>
+			</div>
+			
+		</div>
+
+		<div id = "springframe">
+			<iframe id = "spring-charts" src="highcharts/index.html" frameborder = "0"></iframe>
+		</div>
+
+	</div>
+
+	
+</body>
+</html>
+
+<script type="text/javascript" src="js/demo.js"></script>

@@ -1,0 +1,641 @@
+body{
+	font-family: defFont;
+  /*margin-bottom: 20px;*/
+  width: 1200px;
+  margin: auto;
+  padding-bottom: 20px;
+}
+
+.container{
+  content: "";
+  display: table;
+  margin: auto;
+  /*height: 924px;*/
+  overflow: scroll;
+
+}
+
+.category{
+  font-size: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 26px;
+  border-bottom-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  padding-bottom: 9px;
+  margin-top: 29px;
+  display: table;
+  /*color: #dbe6f0;*/
+}
+
+.img-wrap{
+  float: left;
+  width: 120px;
+  margin-top: -10px;
+}
+
+#img-udn-logo{
+  width: 139px;
+  /*max-width: 100%;*/
+  height: 47px;
+}
+
+#img-plus-logo{
+  width: 162px;
+  margin-left: 10px;
+  /*max-width: 100%;*/
+  height: 47px;
+}
+
+.yellow{
+  color: #fff100;
+  text-decoration: none;
+}
+
+.white{
+  color: #dbe6f0;
+}
+
+#plus-logo{
+  float: right;
+  display: table;
+  content: "";
+}
+
+.title-b{
+  font-family: defFontB;
+
+}
+
+.title{
+  color: #000000;
+  font-size: 32px;
+  margin-bottom: 10px;
+  max-width: 1200px;
+}
+
+.editors-n-src{
+  color: #808080;
+  font-size: 13px;
+  font-family: defFont;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.src{
+  margin-bottom: 5px;
+}
+
+#src-link{
+  color: #7ea0c1;
+}
+
+div.editors{
+  margin-bottom: 5px;
+}
+
+.intro{
+  color: #000000;
+  font-size: 17px;
+  /*padding-bottom: 34px;*/
+  font-family: defFont;
+  max-width: 1200px;
+  line-height: 26px;
+/*  border-bottom-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;*/
+}
+
+#slider{
+	margin-top: 5px;
+  z-index: 0;
+  display: inline;
+  width: 1200px
+}
+
+#slider-scale{
+  width: 1200px;
+  height: 40px;
+  background: url("../img/scale.jpg");
+  right: 10px;
+  margin-top: 20px;
+}
+
+@font-face {
+  font-family: defFont;
+  src: url(ARHeiB5Medium.otf);
+}
+
+@font-face{
+  font-family: defFontB;
+  src: url(ARHeiB5Bold.otf);
+}
+
+#date-display{
+  color: #000000;
+  font-size: 28px;
+  font-family: defFont;
+  border:0;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#filters{
+	width: 100%;
+  position: relative;
+	max-width: 1200px;
+	margin-top: 20px;
+  margin-bottom: 20px;
+  display: table;
+}
+
+#overall-btn{
+	width: 230px;
+	height: 49px;
+  float: left;
+  font-family: defFont;
+  color: #000000;
+  background: #b6f2d0;
+  border-radius: 5px;
+  border: 0;
+  font-size: 24px;
+  margin-left: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+#class-btn{
+	width: 230px;
+	height: 49px;
+  float: left;
+  font-family: defFont;
+  color: #808080;
+  background: #ffffff;
+  border-radius: 5px;
+  border: 0;
+  font-size: 24px;
+  margin-left: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+#region-btn{
+	width: 230px;
+	height: 49px;
+  float: left;
+  font-family: defFont;
+  color: #808080;
+  background: #ffffff;
+  border-radius: 5px;
+  border: 0;
+  font-size: 24px;
+  margin-left: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+#search-btn{
+  width: 230px;
+  height: 49px;
+  float: left;
+  font-family: defFont;
+  color: #808080;
+  background: #ffffff;
+  border-radius: 5px;
+  border: 0;
+  font-size: 24px;
+  margin-left: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+#spring-btn{
+  width: 230px;
+  height: 49px;
+  float: left;
+  font-family: defFont;
+  color: #f47373;
+  background: #ffffff;
+  border-radius: 5px;
+  border: 0;
+  font-size: 24px;
+  margin-left: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn-border-first{
+  width: 1px;
+  height: 49px;
+  background: #555555;
+  float: left;
+}
+
+.btn-border{
+  width: 1px;
+  height: 49px;
+  background: #555555;
+  float: left;
+  margin-left: 4px;
+}
+
+#popup{
+  position: absolute;
+  bottom: -570px;
+  right: 41px;
+  background: #f2f2f2;
+  opacity: 0.9;
+  width: 440px;
+  height: 560px;
+  font-size: 17px;
+  color: #666666;
+  border-color: #262626;
+  border-width: 1px;
+  border-style: solid;
+  z-index: 1;
+}
+
+#notice{
+  width: 440px;
+  height: 30px;
+  margin-left: 37px;
+  margin-top: 15px;
+  font-family: defFont;
+}
+
+.toggleall{
+  margin-left: 35px;
+}
+
+.search-check-class{
+  width: 180px;
+  /*text-align: center;*/
+  float: left;
+  margin-left: 35px;
+  margin-top: 10px;
+}
+
+input{
+  cursor: pointer;
+}
+
+#pop-top{
+  display: table;
+  margin-top: 10px
+}
+
+#dividing-line{
+  width: 400px;
+  height: 30px;
+  margin: 0px auto;
+  padding-top: 10px;
+}
+
+.search-check-region{
+  width: 110px;
+  /*text-align: center;*/
+  float: left;
+  margin-left: 35px;
+  margin-top: 10px;
+}
+#pop-bot{
+  display: table;
+}
+
+#block{
+  height: 21px;
+}
+
+#icons-region{
+  display: none;
+  height: 100px;
+}
+
+#region-img{
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: -30px;
+}
+
+#chart-container{
+	width: 100%;
+  max-width: 1200px;
+}
+
+#rank-table{
+  display: table;
+  /*border: solid;
+  border-width: 1px;
+  border-color: #999999;*/
+  font-size: 17px;
+  position: absolute;
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
+.table-border{
+  width: 1px;
+  height: 45px;
+  background: #999999;
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+#items{
+  color: #666666;
+  display: table;
+}
+
+#rank1{
+  display: table;
+}
+
+#rank2{
+  display: table;
+}
+
+#rank3{
+  display: table;
+}
+
+
+#items-1{
+  float: left;
+  font-family: defFont;
+  width: 40px;
+  height: 45px;
+  line-height: 38px;
+  /*margin-left: 10px;*/
+  margin-top: 10px;
+  text-align: center;
+}
+
+#items-2{
+  float: left;
+  font-family: defFont;
+  width: 120px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#items-3{
+  float: left;
+  font-family: defFont;
+  width: 130px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank1-1{
+  float: left;
+  font-family: defFont;
+  width: 40px;
+  height: 45px;
+  line-height: 38px;
+  /*margin-left: 10px;*/
+  margin-top: 10px;
+  text-align: center;
+
+}
+
+#rank1-2{
+  float: left;
+  font-family: defFont;
+  width: 120px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank1-3{
+  float: left;
+  font-family: defFont;
+  width: 130px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank2-1{
+  float: left;
+  font-family: defFont;
+  width: 40px;
+  height: 45px;
+  line-height: 38px;
+  /*margin-left: 10px;*/
+  margin-top: 10px;
+  text-align: center;
+}
+
+#rank2-2{
+  float: left;
+  font-family: defFont;
+  width: 120px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank2-3{
+  float: left;
+  font-family: defFont;
+  width: 130px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank3-1{
+  float: left;
+  font-family: defFont;
+  width: 40px;
+  height: 45px;
+  line-height: 38px;
+  /*margin-left: 10px;*/
+  margin-top: 10px;
+  text-align: center;
+}
+
+#rank3-2{
+  float: left;
+  font-family: defFont;
+  width: 120px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#rank3-3{
+  float: left;
+  font-family: defFont;
+  width: 130px;
+  height: 45px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.increasing{
+  color: #5a9389;
+  height: 22px;
+}
+
+.decreasing{
+  color: #c05f5f;
+  height: 22px;
+}
+
+.table-details{
+  height: 22px;
+}
+
+#icons_img{
+  position: absolute;
+  margin-top: 300px;
+}
+
+.draw-text-class{
+  font-size: 30px;
+  font-family: defFont;
+}
+
+.draw-text-class-uniq{
+  font-size: 17px;
+  font-family: defFont;
+}
+
+.draw-text-biggest{
+  font-size: 17px;
+  font-family: defFont;
+  fill:#808080;
+}
+
+.draw-text-region{
+  font-size: 30px;
+  font-family: defFont;
+}
+
+#remark{
+  /*float: left;*/
+  font-family: defFont;
+  font-size: 14px;
+}
+
+#tip-date{
+  font-size: 14px;
+  fill: #808080;
+  font-family: defFont;
+}
+
+#tip-spot-name{
+  font-size: 17px;
+  fill: #000000;
+  font-family: defFont;
+}
+
+#tip-tour-number{
+  font-size: 17px;
+  fill: #000000;
+  font-family: defFont;
+}
+
+#tip-region{
+  font-size: 14px;
+  fill: #808080;
+  font-family: defFont;
+}
+
+#tip-class{
+  font-size: 14px;
+  fill: #808080;
+  font-family: defFont;
+}
+
+.draw_lines{
+  stroke: black;
+  opacity: 0.5;
+}
+
+#springframe{
+  display: table;
+  margin-top: 20px;
+}
+
+#spring-charts{
+  display: none;
+  width: 1200px;
+  height: 3000px;
+  margin-top: 20px;
+}
+
+#text-content{
+  display: table;
+  font-family: defFont;
+  margin-top: 50px;
+}
+
+#text-content-top{
+  display: table;
+  margin-top: 20px;
+}
+
+#text-content-bottom{
+  display: table;
+  margin-top: 20px;
+}
+
+.text-content-border-first{
+  width: 1px;
+  background: #999999;
+  float: left;
+  /*margin-top: 20px;*/
+  height: 510px;
+}
+
+.text-content-border{
+  width: 1px;
+  background: #999999;
+  float: left;
+  /*margin-top: 20px;*/
+  margin-left: 20px;
+  height: 510px;
+}
+
+.text-content-block{
+  width: 355px;
+  margin-left: 20px;
+  float: left;
+}
+
+.text-content-img{
+  width: 170px;
+  margin: auto;
+}
+
+.text-content-title{
+  font-family: defFontB;
+  margin: auto;
+  width: 100px;
+  margin-top: 20px;
+  font-size: 25px;
+}
+
+.text-content-details{
+  margin-top: 20px;
+  font-size: 17px;
+  line-height: 26px;
+}
+
+.aa {fill: #f47373; stroke:#c13636; stroke-width:1pt;}  /*公營遊憩區*/
+.bb {fill: #75a7ef; stroke:#3764bf; stroke-width:1pt;}  /*民營遊憩區*/
+.cc {fill: #afd7e8; stroke:#4d95c1; stroke-width:1pt;}  /*海水浴場*/
+.dd {fill: #f2b975; stroke:#e88421; stroke-width:1pt;}  /*古蹟、歷史建物*/ 
+.ee {fill: #938374; stroke:#35281d; stroke-width:1pt;}  /*寺廟*/
+.ff {fill: #56d8a0; stroke:#369e73; stroke-width:1pt;}  /*國家公園*/
+.gg {fill: #47c956; stroke:#0c7a31; stroke-width:1pt;}  /*國家風景區*/
+.hh {fill: #266d0c; stroke:#003a12; stroke-width:1pt;}  /*森林遊樂區*/
+.ii {fill: #5a9389; stroke:#1c2d47; stroke-width:1pt;}  /*縣級風景特定區*/
+.jj {fill: #a8a8a8; stroke:#5b5b5b; stroke-width:1pt;}  /*其他*/
