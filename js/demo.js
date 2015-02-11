@@ -214,7 +214,7 @@ $("#slider").on('slide', function(){
   if(filter_now == 1) drawOverall();
   else if(filter_now == 2) drawByClass();
   else if(filter_now == 3) drawByRegion();
-  else drawBySearch();
+  else if(filter_now == 4) drawBySearch();
 
   ga("send", {
           "hitType": "event",
