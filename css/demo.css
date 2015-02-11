@@ -1,5 +1,5 @@
 body{
-	font-family: defFont;
+	/*font-family: defFont;*/
   /*margin-bottom: 20px;*/
   width: 1200px;
   margin: auto;
@@ -79,8 +79,12 @@ body{
   color: #808080;
   font-size: 13px;
   font-family: defFont;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   margin-top: 20px;
+}
+
+.fb-like{
+  margin-bottom: 20px;
 }
 
 .src{
@@ -117,7 +121,7 @@ div.editors{
 #slider-scale{
   width: 1200px;
   height: 40px;
-  background: url("../img/scale.jpg");
+  background: url("../img/scale2.jpg");
   right: 10px;
   margin-top: 20px;
 }

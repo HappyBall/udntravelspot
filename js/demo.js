@@ -1,4 +1,4 @@
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+if( /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  // some code..
  window.location.href = "http://p.udn.com.tw/upf/newmedia/2015_data/20150209_travelspot_11/udntravelspot_mobile/index.html";
 
@@ -211,7 +211,9 @@ $("#slider").on('slide', function(){
   now_yr = (Math.floor(val / 12)) + 2005;
   now_mn = (Math.floor(val / 12) == 0)? (val % 12) + 1 :(val % 12) + 1;
   $( "#date-display" ).text( now_yr + " 年 " + now_mn + " 月" );
-  if(filter_now == 1)drawOverall();
+  if(filter_now == 1) drawOverall();
+  else if(filter_now == 2) drawByClass();
+  else if(filter_now == 3) drawByRegion();
   else drawBySearch();
 
   ga("send", {
@@ -286,9 +288,9 @@ $("#class-btn").click(function(){
     filter_now = 2;
     d3.select("#icons").transition().style("display", "none");
     // d3.select("svg").transition().style("opacity", 0).remove();
-    $("#slider").css("display", "none");
+    $("#slider").css("display", "inline");
     // d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
-    $("#slider-scale").css("display", "none");
+    $("#slider-scale").css("display", "block");
     // console.log(_root);
     drawByClass();
     // d3.select("svg").transition().style("opacity", 0).remove();
@@ -325,9 +327,9 @@ $("#region-btn").click(function(){
     }
     filter_now = 3;
     d3.select("#icons").transition().style("display", "none");
-    $("#slider").css("display", "none");
+    $("#slider").css("display", "inline");
     // d3.select("#slider").transition().style("opacity", 0).style("pointer-events", "none");
-    $("#slider-scale").css("display", "none");
+    $("#slider-scale").css("display", "block");
     drawByRegion();
     // d3.select("svg").transition().style("opacity", 0).remove();
   }
