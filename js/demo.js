@@ -407,8 +407,14 @@ $("#spring-btn").click(function(){
     $("#slider-scale").css("display", "none");
     $("#chart-container").css("display", "none");
     $("#remark").css("display", "none");
-    // $("#springframe").css("display", "table");
-    $("#springframe").css("visibility", "visible");
+    $("#springframe").css("display", "table");
+    if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+      $("#slideshow").css("display", "none");
+      $("#firefox-img1").css("display", "table");
+      $("#vacation").css("display", "none");
+      $("#firefox-img2").css("display", "table");
+         //Do Firefox-related activities
+    }
   }
 
   document.getElementById("spring-btn").style.color = "#FFFFFF";
