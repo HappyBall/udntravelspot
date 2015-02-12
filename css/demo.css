@@ -656,11 +656,13 @@ input{
 #firefox-img1{
   margin: auto;
   display: none;
+  margin-top: 40px;
 }
 
 #firefox-img2{
   margin: auto;
   display: none;
+  margin-top: 40px;
 }
 
 /*#spring-charts{
