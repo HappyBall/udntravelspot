@@ -227,7 +227,7 @@ $("#slider").on('slide', function(){
 
 $("#overall-btn").click(function(){
   
-  $("#spring-charts").css("display", "none");
+  $("#springframe").css("display", "none");
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "inline");
@@ -266,7 +266,7 @@ $("#overall-btn").click(function(){
 
 $("#class-btn").click(function(){
 
-  $("#spring-charts").css("display", "none");
+  $("#springframe").css("display", "none");
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
@@ -307,7 +307,7 @@ $("#class-btn").click(function(){
 
 $("#region-btn").click(function(){
 
-  $("#spring-charts").css("display", "none");
+  $("#springframe").css("display", "none");
   document.getElementById("popup").style.visibility = "hidden";
   document.getElementById("search-triangle").src = "img/icon_triangle_down.png";
   d3.select("#remark").transition().style("display", "none");
@@ -345,7 +345,7 @@ $("#region-btn").click(function(){
 
 $("#search-btn").click(function(){
 
-  $("#spring-charts").css("display", "none");
+  $("#springframe").css("display", "none");
   d3.select("#remark").transition().style("display", "inline");
   $("#icons-region").css("display", "none");
   $("#text-content").css("display", "none");
@@ -407,7 +407,7 @@ $("#spring-btn").click(function(){
     $("#slider-scale").css("display", "none");
     $("#chart-container").css("display", "none");
     $("#remark").css("display", "none");
-    $("#spring-charts").css("display", "block");
+    $("#springframe").css("display", "table");
   }
 
   document.getElementById("spring-btn").style.color = "#FFFFFF";
@@ -2032,3 +2032,233 @@ function formatFloat(num){
 function src_click(){
   $("#src-link").css("color", "#808080");
 }
+
+  $('#highcharts_01').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '102年 主題樂園遊客總人數排名'
+        },
+        subtitle: {
+            text: ' '
+        },
+        xAxis: {
+            categories: ['劍湖山世界', '九族文化村', '小人國主題樂園', '六福村主題遊樂園', '麗寶樂園', '頑皮世界', '遠雄海洋公園', '8大森林樂園', '東勢林場遊樂區', '杉林溪森林生態渡假園區', '泰雅渡假村', '香格里拉樂園', '雲仙樂園', '尖山埤江南渡假村', '西湖渡假村'],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '人數',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}:<b>{point.y}',
+            valueSuffix: '人次'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: false
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: 0,
+            y: 100,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true,
+            enabled: false,
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: '旅客人數',
+            color:'#56d8a0',
+            data: [128526, 122695, 87674, 86938, 76877,57814,45041,37499,35652,32384,29835,20201,18464,17853,16746]
+        }]
+  });
+
+  $('#highcharts_02').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '103年 主題樂園遊客總人數排名'
+        },
+        subtitle: {
+            text: ' '
+        },
+        xAxis: {
+            categories: ['小人國主題樂園', '六福村主題遊樂園', '麗寶樂園', '劍湖山世界', '頑皮世界', '九族文化村', '遠雄海洋公園', '8大森林樂園', '東勢林場遊樂區', '泰雅渡假村', '雲仙樂園', '杉林溪森林生態渡假園區', '西湖渡假村', '尖山埤江南渡假村', '野柳海洋世界'],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '人數',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}:<b>{point.y}',
+            valueSuffix: '人次'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: false
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: 0,
+            y: 100,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true,
+            enabled: false,
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: '旅客人數',
+            color:'#6ad399',
+            data: [108750, 93743, 67417, 66136,54995,51482,33400,30021,22010,18212,15647,15324,14458,12919,12266]
+        }]
+  });
+
+  $('#highcharts_03').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '102年 遊憩景點旅遊人數排名'
+        },
+        xAxis: {
+            categories: ['義大世界','2013花在彰化','市立動物園','旗津海岸公園','蓮池潭','走馬瀨農場','中正紀念堂','貓空纜車','瑞芳風景特定區','國父紀念館','烏來風景特定區','淡水金色水岸','國立傳統藝術中心','礁溪*','壽山動物園',],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '人數',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}:<b>{point.y}',
+            valueSuffix: '人次'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: false
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: 0,
+            y: 100,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true,
+            enabled: false,
+        },
+        credits: {
+            enabled: false
+        },
+       series: [{
+            name: '旅客人數',
+            color:'#d89216',
+            data:[660000,406670,286825,254711,215270,210931,185318,184921,170895,152989,137057,133016,130188,124927,114005]
+        }]
+  });
+
+  $('#highcharts_04').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '103年 遊憩景點旅遊人數排名'
+        },
+        xAxis: {
+            categories: ['義大世界','基隆黃色小鴨旅遊景點','2014花在彰化','市立動物園','旗津海岸公園','宜蘭及南方澳地區','瑞芳風景特定區','蓮池潭','中正紀念堂','日月潭環潭','貓空纜車','烏來風景特定區','國立傳統藝術中心','東石漁人碼頭','石門水庫',],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '人數',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}:<b>{point.y}',
+            valueSuffix: '人次'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: false
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: 0,
+            y: 100,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true,
+            enabled: false,
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: '旅客人數',
+            color:'#f9b84e',
+            data: [460432,437760,401744,252410,167848,161259,157038,152312,136414,128416,121986,113044,90747,88606,84636]
+        }]
+  });
