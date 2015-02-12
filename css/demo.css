@@ -564,7 +564,8 @@ input{
 }
 
 #springframe{
-  display: none;
+  visibility: hidden;
+  display: table;
   margin-top: 20px;
   width: 1200px;
   padding-bottom: 100px;

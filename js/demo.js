@@ -407,7 +407,8 @@ $("#spring-btn").click(function(){
     $("#slider-scale").css("display", "none");
     $("#chart-container").css("display", "none");
     $("#remark").css("display", "none");
-    $("#springframe").css("display", "table");
+    // $("#springframe").css("display", "table");
+    $("#springframe").css("visibility", "visible");
   }
 
   document.getElementById("spring-btn").style.color = "#FFFFFF";
